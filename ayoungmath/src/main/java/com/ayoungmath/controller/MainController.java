@@ -14,4 +14,11 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("thymeleaf/login");
 		return mav;
 	}
+	
+	@GetMapping("/test")
+	public ModelAndView testPage(HttpServletRequest request) {
+		System.out.println("test");
+		ModelAndView mav = new ModelAndView("thymeleaf/test");
+		return mav;
+	}
 }
