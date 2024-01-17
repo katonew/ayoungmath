@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MainController {
 	@GetMapping("/")
 	public ModelAndView mainPage(HttpServletRequest request) {
-		System.out.println("asd");
+		System.out.println("asdr");
 		ModelAndView mav = new ModelAndView("thymeleaf/login");
 		return mav;
 	}
