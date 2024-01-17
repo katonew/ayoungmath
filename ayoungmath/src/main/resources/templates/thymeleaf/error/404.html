@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>PARLIGO</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<!-- css -->
+	<meta name="context-path" th:content="@{/}"/>
+	<link rel="stylesheet" th:href="@{/common/css/reset.css}"/>
+	<link rel="stylesheet" th:href="@{/common/css/common.css}"/>
+	<link rel="stylesheet" th:href="@{/common/css/layout.css}"/>
+	<link rel="stylesheet" th:href="@{/common/css/sub.css}"/>
+	<style>
+		.error_wrap {padding: 0 2rem; box-sizing: border-box;}
+		.error_wrap img {width:30rem;}
+		.error_wrap .error_text {font-size: 1.1rem; margin-top:2rem;}
+		.error_wrap {width:100%; text-align:center; margin-top:3rem;}
+		.error_wrap .error_text {font-size: 1.1rem; color: #333; line-height: 160%; text-align: center;}
+		.error_wrap .error_text strong {font-size: 3.2rem; font-weight: 700; line-height: 160%; text-align: center; display: inline-block; margin-bottom: 1rem;}
+		.btn_page_btm{margin-top:2rem;}
+		.btn_page_btm_l{border:0px; font-size:1.05rem; border-radius:20px; color:white; background:#00A651;width:140px;margin-right:15px;height:50px;}
+		.btn_page_btm_r{border:0px; font-size:1.05rem; border-radius:20px; color:white; background:#44A7FF;width:140px;margin-right:15px;height:50px;}
+	</style>
+</head>
+<body>
+	<div class="error_wrap">
+		<div class="memberLogin_wrap">
+		    <div class="logo_wrap">
+		      	<div class="logo">
+		        	<div>
+		          		<h1>PARLIGO</h1>
+		        	</div>
+		      	</div>
+	    	</div>
+    	</div>
+        <div class="error_text">
+            <h3>죄송합니다. 현재 찾을 수 없는 페이지를 요청 하셨습니다.</h3>
+            <br/>존재하지 않는 주소를 입력하셨거나,
+            <br/>요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.
+            <br/>궁금한 점이 있으시면 언제든 고객센터를 통해 문의주시길 바랍니다.
+            <br/><br/>감사합니다.
+        </div>
+        <div class="btn_page_btm mt50 clearfix">
+            <button onclick="history.back();" class="btn_page_btm_l">이전으로</button>
+            <button onclick="location.href='/'" class="btn_page_btm_r">메인페이지</button>
+        </div>
+    </div> 
+</body>
+</html>
