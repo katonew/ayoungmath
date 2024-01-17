@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MainController {
 	@GetMapping("/")
 	public ModelAndView mainPage(HttpServletRequest request) {
-		System.out.println("qwe");
-		ModelAndView mav = new ModelAndView("/login");
+		System.out.println("asd");
+		ModelAndView mav = new ModelAndView("thymeleaf/login");
 		return mav;
 	}
 }
