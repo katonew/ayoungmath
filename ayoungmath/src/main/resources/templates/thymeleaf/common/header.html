@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html>
-<th:block layout:fragment="content">
-	<div>header</div>
-</th:block>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+layout:decorate="~{thymeleaf/common/default}">
+<head th:fragment="headFragment">
+	<title>Editorial by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	
+</head>

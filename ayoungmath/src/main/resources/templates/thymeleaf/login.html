@@ -1,7 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{thymeleaf/common/default}">
 <th:block layout:fragment="content">
 	<div class="login_wrap">
-		<a href="/main">메인페이지 이동</a>
+		<header class="major">
+			<h2>Ipsum sed dolor</h2>
+		</header>
+		<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+		<h3><a href="/main">메인페이지 이동</a></h3>
+		<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+		<ul class="actions">
+			<li><a href="#" class="button">More</a></li>
+		</ul>
 	</div>
 </th:block>
