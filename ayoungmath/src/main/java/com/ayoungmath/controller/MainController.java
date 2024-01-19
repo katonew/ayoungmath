@@ -37,4 +37,11 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("thymeleaf/elements");
 		return mav;
 	}
+	
+	@GetMapping("/default")
+	public ModelAndView defaultPage(HttpServletRequest request) {
+		System.out.println("default");
+		ModelAndView mav = new ModelAndView("thymeleaf/common/default");
+		return mav;
+	}
 }
