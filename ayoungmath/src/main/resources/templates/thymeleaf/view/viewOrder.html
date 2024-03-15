@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+layout:decorate="~{thymeleaf/fragments/layout_default}">
+<th:block layout:fragment="content"> 
+	<div class="contentsWrap">
+	    <div class="subTitle">
+	        <h2>주문상세</h2>
+	    </div>           
+	
+	    <!-- 컨텐츠내용 -->
+	    <section class="contentArea">                      
+	        <div class="contents">
+	            <div class="writeForm">
+	                <div class="writerow_box">
+	                    <div class="writerow">
+	                        <div class="t">주문번호</div>
+	                        <div class="c" th:text="${orderInfo.orderNo}">19427001</div>  
+	                    </div>                              
+	                    <div class="writerow">
+	                        <div class="t">주문일시</div>
+	                        <div class="c" th:text="${#temporals.format(orderInfo.createDt, 'yyyy.MM.dd HH:mm:ss')}">2022.08.11 16:58:12</div>  
+	                    </div>    
+	                </div>
+	                <div class="writerow_box">  
+	                	<div class="writerow">
+	                        <div class="t">주문자</div>
+	                        <div class="c" th:text="${orderInfo.buyerName}">홍길동</div>  
+	                    </div>                      
+	                    <div class="writerow">
+	                        <div class="t">주문자 연락처</div>
+	                        <div class="c" th:text="${orderInfo.buyerPhone}">010-1234-1234</div>  
+	                    </div>       
+	                </div>
+	                <div class="writerow_box">  
+	                	<div class="writerow">
+	                        <div class="t">수령인</div>
+	                        <div class="c" th:text="${orderInfo.recipientName}">홍길동</div>  
+	                    </div>                      
+	                    <div class="writerow">
+	                        <div class="t">수령인 연락처</div>
+	                        <div class="c" th:text="${orderInfo.recipientPhone}">010-1234-1234</div>  
+	                    </div>      
+	                          
+	                </div>
+	                <div class="writerow_box">   
+	                    <div class="writerow">
+	                        <div class="t">주소</div>
+	                        <div class="c" th:text="|(${orderInfo.orderZip}) ${orderInfo.orderAddr} ${orderInfo.orderAddrDetail}|">
+	                            서울특별시 금천구 벚꽃로 286 삼성리더스타워 1312호
+	                        </div>  
+	                    </div> 
+	                    <div class="writerow">
+	                        <div class="t">배송요청사항</div>
+	                        <div class="c" th:text="${orderInfo.deliveryRequest}">
+	                            입금대기중
+	                        </div>  
+	                    </div>                               
+	                </div>
+	            </div>
+	            <h3 class="subTitle2 mt30">주문상품</h3>
+	            <table class="tblBasic write">
+	                <caption>상품목록</caption>
+	                <colgroup>
+	                    <col width="7%" />
+	                    <col width="*" />
+	                    <col width="500px" />
+	                    <col width="10%" />
+	                    <col width="7%" />
+	                    <col width="7%" />
+	                    <col width="7%" />
+	                </colgroup>
+	                <thead>
+	                    <tr>
+	                        <th>순번</th>
+	                        <th>상품명(옵션)</th>
+	                        <th>송장번호</th>
+	                        <th>상태</th>
+	                        <th>금액</th>
+	                        <th>수량</th>
+	                        <th>합계</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr th:each="item,index : ${orderProductList}" th:data-seq="${item.orderDetailSeq}" class="ord_li">
+	                        <td th:text="${index.index + 1}">19427001</td>
+	                        <td class="txtAliL" th:text="|${item.productName}(${item.combinedOptionName})|">펌프5.5G50 SXWA</td>
+	                        <td>
+	                        	<!--운송장 번호 있을시 대한통운 202215643215 ex) 배송중-->
+	                            <!--운송장 번호 없을시-->
+	                            <form>
+	                                <fieldset>
+	                                    <legend>운송장번호 등록</legend>
+	                                    <select name="courierCode">
+											<option th:each="ccode:${courierCodes}" th:value="${ccode.code}" th:text="${ccode.name}" th:selected="${item.courierCode == ccode.code }">우체국</option>	
+	                                    </select>
+	                                    <input type="text" name="trackingNo" th:value="${item.trackingNo}" class="w300 number" placeholder="'-'를 제외한 숫자만 입력해주세요" />
+	                                    <label for="text" class="hide">운송장번호 인풋</label>
+	                                </fieldset>
+	                            </form>
+	                        </td>
+	                        <td>
+	                        	<select name="status">
+	                            	<option value="1" th:selected="${item.status == '1'?'true':'false'}">입금대기중</option>
+	                            	<option value="2" th:selected="${item.status == '2'?'true':'false'}">결제완료</option>
+	                            	<option value="3" th:selected="${item.status == '3'?'true':'false'}">배송준비중</option>
+	                            	<option value="4" th:selected="${item.status == '4'?'true':'false'}">배송중</option>
+	                            	<option value="5" th:selected="${item.status == '5'?'true':'false'}">배송완료</option>
+	                            	<option value="7" th:selected="${item.status == '7'?'true':'false'}">주문취소</option>
+	                            	<option value="8" th:selected="${item.status == '8'?'true':'false'}">반품</option>
+	                            	<option value="9" th:selected="${item.status == '9'?'true':'false'}">교환</option>
+	                            </select>
+	                        </td>
+	                        <td th:text="|${#numbers.formatInteger(item.discountPrice,0,'COMMA')}원|">5,000원</td>
+	                        <td th:text="${item.quantity}">2</td>
+	                        <td class="txtAliR" th:text="|${#numbers.formatInteger((item.discountPrice * item.quantity),0,'COMMA')}원|">10,000원</td>
+	                    </tr>
+	                </tbody>
+	                <tfoot>
+	                    <tr>
+	                        <td colspan="7" class="txtAliR">
+	                            총 결제금액(VAT포함)
+	                            <b class="odPrice"  th:text="|${#numbers.formatInteger(orderInfo.totalDiscountPrice,0,'COMMA')}원|">22,000원</b>
+	                        </td>
+	                    </tr>
+	                </tfoot>
+	            </table>
+	
+	            <div class="writeFormSubmit">
+	                <button type="button" class="btn bdGray" onClick="goBack()">목록</button>
+	                <button type="button" id="btn_save" class="btn bgMain">저장</button>
+	            </div>
+	
+	        </div>
+	    </section>
+	    <!-- //컨텐츠내용 -->
+	
+	
+	
+	</div>
+</th:block>
+<th:block layout:fragment="js">
+	<script th:inline="javascript">
+		const orderSeq = /*[[${orderInfo.orderInfoSeq}]]*/0;
+		const orderNo = /*[[${orderInfo.orderNo}]]*/"";
+    	$(document).ready(function(){
+    		$(document).on("input",".number",function(){
+				$(this).val(conNumber($(this).val()));
+			});
+    		
+    		$(document).on("click","#btn_save",function(){
+				let orderArr = [];
+				$(".ord_li").each(function(){
+					
+					let seq = $(this).attr('data-seq');
+					let cCode = $(this).find("select[name='courierCode']").val();
+					let tNo = $(this).find('input[name="trackingNo"]').val();
+					let stat = $(this).find("select[name='status']").val();
+					let orderObj = {"orderDetailSeq":seq,"courierCode":cCode,"trackingNo":tNo,"status":stat};
+					orderArr.push(orderObj);
+				});
+				$.ajax({
+					url : "/supply/ajax/order/status",
+					type : "POST",
+			        data :  {"orderArr":JSON.stringify(orderArr),"orderNo":orderNo}, 
+			        traditional:true,
+					success : function(data) {
+						if(data =='success'){
+							ajaxSuceessAlert("저장을 완료했습니다.", "/supply/view/order?num="+orderSeq);
+						}
+					},error: function (request, status, e) {
+						
+					}
+				});
+			});
+    		
+    		
+    	});
+	</script>
+</th:block>
