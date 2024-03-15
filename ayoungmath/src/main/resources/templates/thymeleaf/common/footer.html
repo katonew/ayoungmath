@@ -1,19 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="footerFragment">
-	<section>
-		<header class="major">
-			<h2>Get in touch</h2>
-		</header>
-		<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-		<ul class="contact">
-			<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-			<li class="icon solid fa-phone">(000) 000-0000</li>
-			<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-			Nashville, TN 00000-0000</li>
-		</ul>
-	</section>
-	<footer id="footer">
-		<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-	</footer>
+<footer>
+    <div class="container">
+        <div class="footer_top">
+            <ul class="pc_footer footer_left">
+                <li>
+                    <b>CS CENTER</b>
+                    <p class="colorBlue">1800-7477</p>
+                    <span>AM 09:00 ~ PM 18:00</span>
+                </li>
+                <li>
+                    <b>BANK INFO</b>
+                    <p class="colorPurple">284837-04-007995</p>
+                    <span>국민은행 / 예금주 : (주)씨엘피</span>
+                </li>
+                <li>
+                    <b>CLP</b>
+                    <table>
+                        <colgroup>
+                            <col width="123px">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>사업자등록번호</td>
+                            <td><a href="http://www.ftc.go.kr/bizCommPop.do?wrkr_no=1298680366" target="_blank">129-86-80366</a></td>
+                        </tr>
+                        <tr>
+                            <td>통신판매입신고번호</td>
+                            <td>2016-성남중원-0059</td>
+                        </tr>
+                        <tr>
+                            <td>개인정보보호책임자</td>
+                            <td>손수인(7477@clean.co.kr)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+                <li>
+                    <b>INFO & CONTACT</b>
+                    <table>
+                        <colgroup>
+                            <col width="45px">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>대표</td>
+                            <td>양경승</td>
+                        </tr>
+                        <tr>
+                            <td>이메일</td>
+                            <td>etax@clean.co.kr</td>
+                        </tr>
+                        <tr>
+                            <td>소재지</td>
+                            <td>경기도 성남시 중원구 사기막골로62번길 33 지하1층 111,112,113,114호</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+            <ul class="footer_right">
+                <li><a href="/main/terms/privacy">개인정보처리방침</a></li>
+                <li><a href="/main/terms/service">서비스이용약관</a></li>
+                <li><a href="/board/save_inquiry?btype=AS">AS문의</a></li>
+            </ul>
+            <table class="mobile_footer footer_left">
+                <colgroup>
+                    <col width="123px">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td rowspan="2">CS CENTER</td>
+                    <td class="bold line">1800-7477</td>
+                </tr>
+                <tr>
+                    <td>AM 09:00 ~ PM 18:00</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">BANK INFO</td>
+                    <td class="bold line">787-25-0022-044</td>
+                </tr>
+                <tr>
+                    <td>국민은행 / 예금주 : (주)씨엘피</td>
+                </tr>
+                <tr>
+                    <td>대표</td>
+                    <td>양경승</td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td>etax@clean.co.kr</td>
+                </tr>
+                <tr>
+                    <td>사업자등록번호</td>
+                    <td><a href="http://www.ftc.go.kr/bizCommPop.do?wrkr_no=1298680366" target="_blank">129-86-80366</a></td>
+                </tr>
+                <tr>
+                    <td>통신판매입신고번호</td>
+                    <td>2016-성남중원-0059</td>
+                </tr>
+                <tr>
+                    <td>개인정보보호책임자</td>
+                    <td>손수인(7477@clean.co.kr)</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">소재지</td>
+                    <td class="line">경기도 성남시 중원구 사기막골로62번길 33</td>
+                </tr>
+                <tr>
+                    <td>지하1층 111,112,113,114호</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer_bottom">
+            <p>Copyright CLP. All rights reserved.</p>
+            <div>
+                <a class="instagram"></a>
+                <a class="youtube"></a>
+                <a class="kakao"></a>
+            </div>
+        </div>
+    </div>
+</footer>
 </th:block>
+</html>

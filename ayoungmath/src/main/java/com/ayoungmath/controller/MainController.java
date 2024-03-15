@@ -36,6 +36,7 @@ public class MainController {
 	@GetMapping("/generic")
 	public ModelAndView genericPage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/generic");
+		
 		return mav;
 	}
 	

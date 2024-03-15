@@ -1,48 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="navFragment">
-	<div id="sidebar">
-		<div class="inner">
-
-			<!-- Search -->
-				<section id="search" class="alt">
-					<form method="post" action="#">
-						<input type="text" name="query" id="query" placeholder="Search" />
-					</form>
-				</section>
-
-			<!-- Menu -->
-				<nav id="menu">
-					<header class="major">
-						<h2>Menu</h2>
-					</header>
-					<ul>
-						<li><a href="/main">Homepage</a></li>
-						<li><a href="/generic">Generic</a></li>
-						<li><a href="/elements">Elements</a></li>
-						<li>
-							<span class="opener">Submenu</span>
-							<ul>
-								<li><a href="#">Lorem Dolor</a></li>
-								<li><a href="#">Ipsum Adipiscing</a></li>
-								<li><a href="#">Tempus Magna</a></li>
-								<li><a href="#">Feugiat Veroeros</a></li>
-							</ul>
-						</li>
-						<li><a href="#">Etiam Dolore</a></li>
-						<li><a href="#">Adipiscing</a></li>
-						<li>
-							<span class="opener">Another Submenu</span>
-							<ul>
-								<li><a href="#">Lorem Dolor</a></li>
-								<li><a href="#">Ipsum Adipiscing</a></li>
-								<li><a href="#">Tempus Magna</a></li>
-								<li><a href="#">Feugiat Veroeros</a></li>
-							</ul>
-						</li>
-						<li><a href="#">Maximus Erat</a></li>
-						<li><a href="#">Sapien Mauris</a></li>
-						<li><a href="#">nav last</a></li>
-					</ul>
-				</nav>
+	<header class="header">
+		<h1>
+		    <!-- img th:src="@{/common/admin/images/logo.png}" alt="CLP"/ -->
+		    아영수학
+		</h1>
+		<div class="utill_wrap">
+		    <!--<div class="link_wrap">
+		        <a class="btn sizeP5 " href="javascript:void(0);" onclick="alertReady();" title="쇼핑몰 바로기">
+		            <i class="fontIcons google">storefront</i>
+		        </a>
+		    </div>
+		    <div class="utill">                  
+		        <span class="name">
+		            <i class="fontIcons google">apps</i>
+		        </span>           
+		    </div>-->
+		    <!-- 메뉴 -->
+		    <div class="memberMenu">
+		        <div>
+		        	<th:block>
+			            <p class="name"><strong>홍길동</strong>님</p>
+			            <p class="level">운영사</p>
+			        </th:block>
+		            <a th:href="@{/logout}" class="btn sizeS bdGray">로그아웃</a>
+		        </div>
+		    </div>
+		    <!-- //메뉴 -->
+		</div>
+	</header>
+	<div class="container">
+		<nav class="sideNav">
+			<ul>
+				<li aria-label="product"><a><i class="fontIcons google"></i>상품관리</a></li>
+			</ul>
+		</nav>
 </th:block>
+</html>

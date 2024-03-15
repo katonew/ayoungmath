@@ -1,0 +1,138 @@
+
+/* 로그인 */
+.loginForm{width: 420px; margin: 200px auto 0;}
+.loginForm .loginLogo{text-align: center; margin-bottom: 30px;}
+.loginForm .loginInput{position: relative; margin-bottom:15px;}
+.loginForm .loginInput label{position: absolute; left: 12px; top: 0; line-height: 50px; color: #989ca9; transition: all 0.5s;}
+.loginForm .loginInput input{width: 100%; height: 50px;}
+.loginForm .loginInput input.on + label,
+.loginForm .loginInput input:focus + label{left:12px ; top: -15px; background: #fff; padding: 0 10px; line-height: 30px;}
+.loginForm button[type="submit"]{width: 100%; margin-top: 20px;}
+.loginForm .loginIdpw{text-align: center;}
+.loginForm .loginIdpw a{display: inline-block; margin-top: 30px; padding-left: 28px; color: #777; position: relative; font-size: 13px;}
+.loginForm .loginIdpw a:first-child{padding-left:0px;}
+.loginForm .loginIdpw a + a::before{ content: ''; position: absolute; top: 3px; left: 12px; width: 1px; height: 12px; border-radius: 0.5px; background-color: #dadada;}
+.loginForm .loginIdpw a:hover{color:var(--fontDefultColor)}
+.loginFooter{padding: 50px 0; text-align: center; color: #777; margin-top: 100px; position: fixed; bottom: 0; width: 100%; font-size: 12px; letter-spacing: 2px;}
+
+/* 탭메뉴 */ 
+.tabMenu{display: flex; margin-bottom: 20px;}
+.tabMenu li{}
+.tabMenu li a{display: block; height: 44px; line-height: 44px; padding: 0 40px; background: #edf0f9; color: #bbbec9; font-size: 14px; border: 1px solid #dfe2ed; border-left: 0; position: relative;}
+.tabMenu li.on a{background: #fff; color: var(--subColor);}
+.tabMenu li:first-of-type a{border-radius: 4px 0 0 4px; border-left: 1px solid #dfe2ed;}
+.tabMenu li:last-of-type a{border-radius: 0 4px 4px 0;}
+.tabMenu.tabStat{}
+.tabMenu.tabStat li a{text-align: left; padding: 0 80px 0 20px;}
+.tabMenu.tabStat li a span{position: absolute; right: 20px; top:12px; font-size: 11px; display: inline-block; width: 20px; height: 20px; text-align: center; line-height: 20px; background: #a3a3a3; border-radius: 50%; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+.tabMenu.tabStat li.on a span{background: var(--mainColor);}
+
+/* 라벨 */
+.label{padding: 0 15px; height: 22px; font-size: 12px; border-radius: 4px; font-style: normal;}
+.label.bgBlue{background: #e1eafe; color: #7f9ff7;}
+.label.bgRed{background: #fbe7e7; color: #f45858;}
+.label.bgGreen{background: #d9efdb; color: #5db770;}
+
+
+/* 설명텍스트 */
+.descWrap{margin-top:10px;}
+.descWrap p{font-size: 12px; color: #777;}
+
+/* 레이어팝업 */
+.layerPopupWrap{display: none; position: fixed; z-index: 50; top: 0; left: 0; right: 0; bottom: 0;  background: rgba(37, 39, 43, 0.4); }
+.layerPopup{position: relative; overflow: hidden; border-radius: 8px;  background: #fff; width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.layerPopup .title{text-align: center; margin-top: 30px; font-size: 20px;}
+.layerPopup .content{padding: 20px;}
+.layerPopup .popupClose{position: absolute; width: 40px; height: 40px; top: 30px; right: 20px; color: #696d76;}
+
+
+
+.star_list { display: flex; align-items: center; }
+.star_list > i { margin-right: 2px; font-size: 0; font-style: normal; }
+.star_list > i:last-child { margin-right: 0; }
+.star_list > i:after { content: '\f005'; font-family: "FontAwesome"; font-size: 2.1rem; color: #5841e6; }
+.star_list > i.half:after{ content: '\f123'; }
+.star_list > i.empty:after{ content: '\f006'; }
+
+/* 제품등록 */
+.option{display:none;}
+.option_wrap{display:flex; height:500px;}
+.option_wrap > .option_box{width:100%;}
+.option_wrap.row2 > .option_box{width:calc(100% / 2);}
+.option_wrap.row3 > .option_box:first-child,
+.option_wrap.row3 > .option_box:nth-of-type(2){width:25%}
+.option_wrap.row3 > .option_box:last-child{width:50%;}
+
+.option_wrap > .option_box:not(:first-child){display:none;}
+.option_wrap.row2 > .option_box:not(:last-child){display:inline-block;}
+.option_wrap.row3 > .option_box{display:inline-block;}
+
+.option_wrap > .option_box:not(:last-child){border-right:1px solid #d6d6d6;}
+
+.option_box > .t{font-size:15px; text-align:center; background:#e5e5e5; padding:10px;}
+.option_box > .t > label{font-size:14px; margin-right:10px; font-weight:600;}
+.option_box > .c{text-align:center; height:calc(100% - 60px); overflow-y: auto;}
+
+.option_box > .c .txt_filde{border-bottom:1px solid #d6d6d6; position:relative;}
+
+.option_box > .c .txt_filde .filed{display:flex; align-items: center;}
+.option_box > .c .txt_filde .filed > label{width:10%; padding:0 12px; min-width:100px; border-right:1px dotted #dfe2ed; height:40px; line-height: 40px; font-weight:600;}
+.option_box > .c .txt_filde .filed > input{width:90%; border:0px;}
+.option_box > .c .txt_filde .filed > span{border-right:1px dotted #dfe2ed; cursor:pointer; width:30px; height:40px; line-height: 40px;}
+
+.option_box > .c .txt_filde.on{background-color:var(--subColor); color:#fff;}
+.option_box > .c .txt_filde.on input{color:#fff;}
+.option_box > .c .txt_filde.on input::placeholder{color:#fff;}
+.option_box > .c .txt_filde .filed.stock{display:none;}
+
+.option_box > .c .txt_filde > .oPay{display:none; width:100%; border-top:1px dotted #dfe2ed;}
+.option_box > .c .txt_filde > .oPay > .filed{width:calc(100% / 3);}
+.option_box > .c .txt_filde > .oPay > .filed:not(:first-child){border-left:1px dotted #dfe2ed;}
+.option_box > .c .txt_filde .w_pay{border-width:0; border-radius: 0;}
+.option_box > .c .txt_filde .s_pay{border-width:0; border-radius: 0;}
+.option_box > .c .txt_filde .op_pay{border-width:0; border-radius: 0;}
+.option_box > .c .txt_filde:hover .option_del_btn{display:inline-block;}
+.option_box > .c .txt_filde .option_del_btn{display:none; position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;}
+.option_box > .c .txt_filde .chkBox{display:block; position:absolute; right:40px; top:50%; transform:translateY(-50%); cursor:pointer;}
+.option_box > .c .option_add_btn{font-size:30px; margin:20px 0; cursor:pointer;}
+
+.option_box.last > .c .txt_filde{display:flex; flex-wrap:wrap;}
+.option_box.last > .c .txt_filde > .filed{width:calc((100% / 3)*2);}
+.option_box.last > .c .txt_filde > .filed.stock{display:flex; border-left:1px dotted #dfe2ed; width:calc(100% / 3);}
+
+.option_box.oPay_box.last .oPay{display:flex;}
+.option_box > .c .txt_filde input{background:transparent;}
+.option_box > .c .txt_filde input:focus{border-color:#d6d6d6;}
+
+
+/* 기획전 등록 */
+.pick_btn_wrap{display:flex; align-items: center;}
+.pick_btn_wrap > p{border:1px solid #dfe2ed; padding:0 12px; height:40px; line-height: 40px; border-radius: 4px; width:200px; font-weight: 600;}
+.tblBasic.pick_pd_list{width:800px; margin-top:10px; min-width: 0px;}
+
+/* 카테고리 등록 */
+.category .writerow .c{width:100% !important;}
+.category .option_wrap{display:flex; height:auto; max-height:600px;}
+.category .option_wrap > .option_box{ display:inline-block;}
+.category .option_box > .t{font-size:15px; text-align:center; background:#e5e5e5; padding:10px; font-weight:600;}
+.category .option_box > .c{height:calc(100% - 40px)}
+
+/* summernote */
+.note-modal-footer{height:auto !important; overflow:hidden;}
+.note-modal-body{padding:20px !important;}
+.note-btn-primary{background:var(--mainColor) !important; border:0px !important;}
+
+
+/* 주문관리 탭 */
+.tabWrap{overflow-y: auto;}
+.tabWrap::-webkit-scrollbar{width: 0px; height: 6px; display:inline-block;}
+.tabWrap::-webkit-scrollbar-thumb{ width: 17%; background-color: var(--mainColor); border-radius: 10px; }
+.tabWrap::-webkit-scrollbar-track{ background-color: rgba(0,0,0,0.2);}
+
+.orderTab{width:100%; margin:0px; min-width:1100px; overflow:hidden;}
+.orderTab > li{width:calc(100% / 9);}
+.orderTab > li > a{padding:0 10px; text-align:center;}
+
+
+/* 상품정보제공고시 */
+
