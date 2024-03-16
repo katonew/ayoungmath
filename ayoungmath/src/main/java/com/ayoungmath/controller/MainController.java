@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,14 +17,9 @@ public class MainController {
 
 	
 	@GetMapping("/")
-	public ModelAndView indexPage(HttpServletRequest request) {
+	public ModelAndView pageMain(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/login");
-		return mav;
-	}
 	
-	@GetMapping("/test")
-	public ModelAndView testPage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("thymeleaf/test");
 		return mav;
 	}
 	
@@ -33,23 +29,11 @@ public class MainController {
 		return mav;
 	}
 	
-	@GetMapping("/generic")
-	public ModelAndView genericPage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("thymeleaf/generic");
-		
-		return mav;
-	}
-	
-	@GetMapping("/elements")
-	public ModelAndView elementsPage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("thymeleaf/elements");
-		return mav;
-	}
-	
-	@GetMapping("/default")
-	public ModelAndView defaultPage(HttpServletRequest request) {
-		System.out.println("default");
-		ModelAndView mav = new ModelAndView("thymeleaf/common/default");
+	@GetMapping("/list")
+	public ModelAndView listPage(HttpServletRequest request, @ModelAttribute("classSeq") String classSeq) {
+		System.out.println("classSeq :: ");
+		System.out.println(classSeq);
+		ModelAndView mav = new ModelAndView("thymeleaf/list/listProduct");
 		return mav;
 	}
 }

@@ -8,25 +8,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		    아영수학
 		</h1>
 		<div class="utill_wrap">
-		    <!--<div class="link_wrap">
-		        <a class="btn sizeP5 " href="javascript:void(0);" onclick="alertReady();" title="쇼핑몰 바로기">
-		            <i class="fontIcons google">storefront</i>
+		    <div class="link_wrap">
+		        <a class="btn sizeP5 " href="javascript:void(0);" onclick="alertReady();" title="쇼핑몰 바로가기">
+		            <i class="fontIcons google"><p class="name"><strong>홍길동</strong>님</p></i>
 		        </a>
 		    </div>
 		    <div class="utill">                  
 		        <span class="name">
-		            <i class="fontIcons google">apps</i>
+		            <i class="fontIcons google"><a th:href="@{/logout}" class="btn sizeS bdGray">로그아웃</a></i>
 		        </span>           
-		    </div>-->
-		    <!-- 메뉴 -->
-		    <div class="memberMenu">
-		        <div>
-		        	<th:block>
-			            <p class="name"><strong>홍길동</strong>님</p>
-			            <p class="level">운영사</p>
-			        </th:block>
-		            <a th:href="@{/logout}" class="btn sizeS bdGray">로그아웃</a>
-		        </div>
 		    </div>
 		    <!-- //메뉴 -->
 		</div>
@@ -34,7 +24,39 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<div class="container">
 		<nav class="sideNav">
 			<ul>
-				<li aria-label="product"><a><i class="fontIcons google"></i>상품관리</a></li>
+				<li><a><i class="fontIcons google"></i>초등학교</a>
+					<div class="dep2Menu">
+						<ul>
+							<li><a>1학년</a></li>
+							<li><a>2학년</a></li>
+							<li><a>3학년</a></li>
+							<li><a>4학년</a></li>
+							<li><a>5학년</a></li>
+							<li><a>6학년</a></li>
+							<li><a th:href="@{/office/list/qna}">상품문의</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a><i class="fontIcons google"></i>중학교</a>
+					<div class="dep2Menu">
+						<ul>
+							<li><a>1학년</a></li>
+							<li><a>2학년</a></li>
+							<li><a>3학년</a></li>
+							<li><a th:href="@{/office/list/qna}">상품문의</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a><i class="fontIcons google"></i>고등학교</a>
+					<div class="dep2Menu">
+						<ul>
+							<li><a>1학년</a></li>
+							<li><a>2학년</a></li>
+							<li><a>3학년</a></li>
+							<li><a th:href="@{/office/list/qna}">상품문의</a></li>
+						</ul>
+					</div>
+				</li>
 			</ul>
 		</nav>
 </th:block>

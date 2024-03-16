@@ -3,7 +3,7 @@
 xmlns:th="http://www.thymeleaf.org" 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-layout:decorate="~{thymeleaf/fragments/layout_default}">
+layout:decorate="~{thymeleaf/common/default}">
 <th:block layout:fragment="content">     
 <div class="contentsWrap">
     <div class="subTitle">
@@ -14,11 +14,11 @@ layout:decorate="~{thymeleaf/fragments/layout_default}">
         <form id="frm-object" th:object="${form}">
             <fieldset>
                 <legend>검색</legend>
-                <select th:field="*{type}" >
+                <select >
                     <option value="all">카테고리</option>
-                    <option th:each="item :${categoryList}" th:value="${item.seq}" th:text="${item.categoryName}">디지털/가전</option>
+                    <option >디지털/가전</option>
                 </select>
-                <input type="text" th:field="*{search}" id="text" placeholder="검색어를 입력하세요." />
+                <input type="text" id="text" placeholder="검색어를 입력하세요." />
                 <label for="text" class="hide">검색어</label>                    
                 <button type="submit" class="btn sizeM bgMain">검색</button>
             </fieldset>
@@ -30,13 +30,8 @@ layout:decorate="~{thymeleaf/fragments/layout_default}">
     <section class="contentArea">
         <div class="contentTop">
             <div class="flLeft">
-               총 <strong class="fcMain" th:text="${pagination.totalRecord}"></strong> 건 ( 
-	                <strong class="fcMain" th:text="${pagination.pageNum}"></strong>/<th:block th:text="${pagination.totalPage}"></th:block> )
-              <!--   <select id="pageSelect" class="ml10">
-                    <option value="10">10개</option>
-                    <option value="30">30개</option>
-                    <option value="50">50개</option>
-                </select> -->
+               총 <strong class="fcMain" ></strong> 건 ( 
+	                <strong class="fcMain">?</strong> )
             </div>
             <div class="flRight">
                 <a href="/supply/form/product" class="btn sizeM bgMain">등록</a>
@@ -73,30 +68,28 @@ layout:decorate="~{thymeleaf/fragments/layout_default}">
                     </tr>
                 </thead>
                 <tbody class="allchkArea">
-                	<th:block th:if="${productList != null and productList.size > 0}">
-	                    <tr th:each="item : ${productList}">
+                	<th:block >
+	                    <tr>
 	                        <td>
 	                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
 	                            <label for="ckbox1" class="hide">1</label>
 	                        </td>
-	                        <td th:text="${item.categoryName}">카테고리</td>
+	                        <td>카테고리</td>
 	                        <td>
 	                            <div class="imgWrap imgBorder">
-	                                <img th:if="${item.thumbnail != null && item.thumbnail != ''}" th:src="@{'/image/product/'+${item.thumbnail}}" onerror="this.src='/common/images/noImg.png';"/>
-	                                <img th:unless="${item.thumbnail != null && item.thumbnail != ''}" src="/common/images/noImg.png">
 	                            </div>
 	                        </td>
 	                        <td class="txtAliL">
-	                            <a th:href="@{/supply/modify/product(num=${item.productSeq})}" th:text="${item.productName}">펌프5.5G50 SXWA</a>
+	                            <a>펌프5.5G50 SXWA</a>
 	                        </td>
-	                        <td th:text="${item.makerName}">나이키</td>
-	                        <td th:text="|${#numbers.formatInteger(item.price,0,'COMMA')}원|">155,000원</td>
-	                        <td th:text="|${#numbers.formatInteger(item.discountPrice,0,'COMMA')}원|">125,000원</td>
-	                        <td th:text="${item.approveYn == 'Y' ? '승인' : '승인대기'}">공개</td>
-	                        <td th:text="${#temporals.format(item.createDt, 'yyyy.MM.dd')}">2022.07.22</td>
+	                        <td>나이키</td>
+	                        <td>155,000원</td>
+	                        <td>125,000원</td>
+	                        <td>공개</td>
+	                        <td>2022.07.22</td>
 	                    </tr>
                     </th:block>
-                    <th:block th:unless="${productList != null and productList.size > 0}">
+                    <th:block>
 	                    <tr class="noData">
 	                        <td colspan="9">내용이 없습니다.</td>
 	                    </tr>
@@ -108,11 +101,8 @@ layout:decorate="~{thymeleaf/fragments/layout_default}">
       
         </div>      
         <div class="pagingWrap mt20">
-	       	<a th:if="${pagination.hasPreviousPageNav}==true" class="prev" th:with="url_prev=${form.makeQString(pagination.firstPageNo-1)}" th:href="@{${url_prev}}">이전 페이지</a>
-			<th:block th:each="pageNum: ${#numbers.sequence(pagination.firstPageNo, pagination.lastPageNo)}">
-				<a th:with="url=${form.makeQString(pageNum)}" th:href="@{${url}}" th:class="${pageNum}==${pagination.pageNum} ? 'on' : ''" th:text="${pageNum}"></a>
-			</th:block>
-			<a th:if="${pagination.hasNextPageNav}==true" class="next" th:with="url_next=${form.makeQString(pagination.lastPageNo + 1)}" th:href="@{${url_next}}">다음 페이지</a>
+	       	<a class="prev">이전 페이지</a>
+			<a class="next">다음 페이지</a>
        </div>  
     </section>
     <!-- //컨텐츠내용 -->
