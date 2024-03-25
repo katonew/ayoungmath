@@ -7,7 +7,7 @@ layout:decorate="~{thymeleaf/common/default}">
 <th:block layout:fragment="content">     
 <div class="contentsWrap">
     <div class="subTitle">
-        <h2>상품목록</h2>
+        <h2>목록</h2>
     </div>           
     <!-- 검색영역 -->
     <section class="seachArea">
@@ -41,15 +41,8 @@ layout:decorate="~{thymeleaf/common/default}">
             <table class="tblBasic allchkBox">
                 <caption>상품목록</caption>
                 <colgroup>
-                    <col width="5%" />
-                    <col width="10%" />
                     <col width="10%" />
                     <col width="*" />
-                    <col width="7%" />
-                    <col width="9%" />
-                    <col width="9%" />
-                    <col width="7%" />
-                    <col width="10%" />
                 </colgroup>
                 <thead>
                     <tr>
@@ -57,39 +50,22 @@ layout:decorate="~{thymeleaf/common/default}">
                             <input type="checkbox" name="" id="allChk" class="allChk" />
                             <label for="allChk" class="hide">전체체크</label>
                         </th>
-                        <th>카테고리</th>
-                        <th>썸네일</th>
-                        <th>제품명</th>
-                        <th>제조사</th>
-                        <th>소비자가</th>
-                        <th>할인가</th>
-                        <th>승인여부</th>
-                        <th>등록일</th>
+                        <th>제목</th>
                     </tr>
                 </thead>
                 <tbody class="allchkArea">
-                	<th:block >
-	                    <tr>
+                	<th:block th:if="${map != null and map.size > 0}">
+	                    <tr th:each="item : ${map}">
 	                        <td>
 	                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
 	                            <label for="ckbox1" class="hide">1</label>
 	                        </td>
-	                        <td>카테고리</td>
-	                        <td>
-	                            <div class="imgWrap imgBorder">
-	                            </div>
+	                        <td class="txtAliL" >
+	                            <a th:href="@{/view(viewSeq=${item.Video_Seq})}" class="ellipsis" th:text="${item.Video_Name}">제목</a>
 	                        </td>
-	                        <td class="txtAliL">
-	                            <a>펌프5.5G50 SXWA</a>
-	                        </td>
-	                        <td>나이키</td>
-	                        <td>155,000원</td>
-	                        <td>125,000원</td>
-	                        <td>공개</td>
-	                        <td>2022.07.22</td>
 	                    </tr>
                     </th:block>
-                    <th:block>
+                    <th:block th:unless="${map != null and map.size > 0}">
 	                    <tr class="noData">
 	                        <td colspan="9">내용이 없습니다.</td>
 	                    </tr>

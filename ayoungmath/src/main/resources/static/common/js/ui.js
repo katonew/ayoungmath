@@ -78,65 +78,6 @@ $(function () {
     }
   });
 
-  //달력
-  $(".datepicker > input").datepicker({
-    dateFormat: "yy-mm-dd",
-    prevText: "이전 달",
-    nextText: "다음 달",
-    monthNames: [
-      "1월",
-      "2월",
-      "3월",
-      "4월",
-      "5월",
-      "6월",
-      "7월",
-      "8월",
-      "9월",
-      "10월",
-      "11월",
-      "12월",
-    ],
-    monthNamesShort: [
-      "1월",
-      "2월",
-      "3월",
-      "4월",
-      "5월",
-      "6월",
-      "7월",
-      "8월",
-      "9월",
-      "10월",
-      "11월",
-      "12월",
-    ],
-    dayNames: ["일", "월", "화", "수", "목", "금", "토"],
-    dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
-    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
-    showMonthAfterYear: true,
-    //maxDate: 0
-  });
-  //오늘날짜로지정
-  //$(".startDay").datepicker("setDate", "+0" );
-
-  $(".day1w").on("click", function () {
-    var d = new Date();
-    d.setDate(d.getDate() - 7);
-    $(this).parents(".dayWrap").find(".startDay").datepicker("setDate", d);
-    $(this).parents(".dayWrap").find(".endDay").datepicker("setDate", "+0");
-  });
-  $(".day3m").on("click", function () {
-    var d = new Date();
-    d.setMonth(d.getMonth() - 3);
-    $(this).parents(".dayWrap").find(".startDay").datepicker("setDate", d);
-    $(this).parents(".dayWrap").find(".endDay").datepicker("setDate", "+0");
-  });
-  $(".day1y").on("click", function () {
-    $(this).parents(".dayWrap").find(".startDay").datepicker("setDate", "-365");
-    $(this).parents(".dayWrap").find(".endDay").datepicker("setDate", "+0");
-  });
-
   //전체체크
   $(document).on("click",".allChk",function(){
     $(this)

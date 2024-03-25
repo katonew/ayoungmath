@@ -86,10 +86,6 @@ input[type=radio] + label{margin-right: 15px;}
 .schInputWrap button{ position:absolute; right:10px; top:12px; width:16px; height:16px; background: var(--spriteImg) no-repeat -135px -34px; text-indent: -9999px;}
 .schInputWrap input:focus + button{background-position: -135px -64px;}
 .dayWrap{line-height: 40px;}
-.datepicker{position: relative; display: inline-block; }
-.datepicker i{ position:absolute; right:10px; top:12px; width:16px; height:16px; background: var(--spriteImg) no-repeat -93px -34px; text-indent: -9999px;}
-.datepicker input{width: 130px; }
-.datepicker input:focus + i{background-position: -93px -64px;}
 
 /* file */
 .fileBox{}

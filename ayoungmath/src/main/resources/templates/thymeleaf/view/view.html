@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+layout:decorate="~{thymeleaf/common/default}">
+<th:block layout:fragment="content"> 
+	<div class="contentsWrap">
+	    <div class="subTitle">
+	        <h2 th:text="${map.Video_Name}"></h2>
+	    </div>           
+	
+	    <!-- 컨텐츠내용 -->
+	    <section class="contentArea">                      
+	        <div class="contents">
+				<div class="writerow">
+					<div class="t">작성자</div>
+	            	<h3 class="subTitle2 mt30">제목</h3>
+	            </div>
+	            <div class="writerow">
+					<div class="t">영상</div>
+	            	<h3 class="subTitle2 mt30">
+						<video width="320" height="240" controls>
+					    <!-- 동적으로 파일 URL을 생성하여 설정 -->
+					    <source th:src="@{'/video/' + ${map['fileUrl']}}" type="video/mp4">
+					    Your browser does not support the video tag.
+						</video>
+					</h3>
+	            </div>
+	            
+	
+	            <div class="writeFormSubmit">
+	                <button type="button" class="btn bdGray" onClick="goBack()">목록</button>
+	                <button type="button" id="btn_save" class="btn bgMain">저장</button>
+	            </div>
+	
+	        </div>
+	    </section>
+	    <!-- //컨텐츠내용 -->
+	
+	
+	</div>
+</th:block>
+<th:block layout:fragment="js">
+	<script th:inline="javascript">
+	</script>
+</th:block>
