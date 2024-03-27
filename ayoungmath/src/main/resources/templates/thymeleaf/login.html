@@ -1,14 +1,54 @@
 <!DOCTYPE html>
+<head th:fragment="headFragment">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>아영수학</title>
+	<!-- css, js -->
+	<link rel="stylesheet" href="/common/css/contents.css">
+</head>
 <html lang="ko" 
 xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:th="http://www.thymeleaf.org"
-layout:decorate="~{thymeleaf/common/default}">
+xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="content">
-	<div class="login_wrap">
-		<header class="major">
-			<h2>메인페이지</h2>
-		</header>
-		<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-		<h3><a href="/main">메인페이지 이동</a></h3>
+	<div class="loginForm">
+		<div class="loginLogo">
+			<h2>로그인</h2>
+		</div>
+		<div class="loginForm">
+			<div class="loginInput">아이디</div>
+			<div class="loginInput"> 
+				<input id="userId" type="text">
+			</div>
+			<div class="loginInput">비밀번호</div> 
+			<div class="loginInput">
+				<input id="password" class="loginInput" type="password">
+			</div>
+			<div class="btndiv">
+				<button class="loginIdpw" type="button" onclick="login()"> 로그인 </button>
+			</div>
+		</div>
 	</div>
+</th:block>
+<th:block>
+	<script>
+		function login(){
+			let userId = document.querySelector('#userId').value;			
+			let password = document.querySelector('#password').value;
+			console.log(userId)			
+			console.log(password)
+			$.ajax({
+				url : "/ajax/login",
+				method : "get",
+				data : {'userId' : userId,'password' : password},
+				success : function(d){
+					
+				},errer : function(e){
+					console.log(e)
+				}
+				
+			})
+		}
+	</script>
 </th:block>

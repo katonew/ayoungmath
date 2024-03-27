@@ -40,6 +40,8 @@ public class MainController {
 	@GetMapping("/")
 	public ModelAndView pageMain(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/login");
+
+		//ModelAndView mav = new ModelAndView("thymeleaf/main");
 	
 		return mav;
 	}
@@ -96,5 +98,11 @@ public class MainController {
 	public ResponseEntity<String> execVideo(){
 		return new ResponseEntity<>("ok",HttpStatus.OK);
 	}
+	
+	@GetMapping("/ajax/login")
+	public ResponseEntity<String> getLogin(){
+		return new ResponseEntity<>("ok",HttpStatus.OK);
+	}
+	
 	
 }
