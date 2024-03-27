@@ -14,10 +14,6 @@ layout:decorate="~{thymeleaf/common/default}">
         <form id="frm-object" th:object="${form}">
             <fieldset>
                 <legend>검색</legend>
-                <select >
-                    <option value="all">카테고리</option>
-                    <option >디지털/가전</option>
-                </select>
                 <input type="text" id="text" placeholder="검색어를 입력하세요." />
                 <label for="text" class="hide">검색어</label>                    
                 <button type="submit" class="btn sizeM bgMain">검색</button>
@@ -30,11 +26,10 @@ layout:decorate="~{thymeleaf/common/default}">
     <section class="contentArea">
         <div class="contentTop">
             <div class="flLeft">
-               총 <strong class="fcMain" ></strong> 건 ( 
-	                <strong class="fcMain">?</strong> )
+				<!--건수 표현 구역-->
             </div>
             <div class="flRight">
-                <a href="/supply/form/product" class="btn sizeM bgMain">등록</a>
+				<!--버튼구역-->
             </div>                            
         </div>
         <div class="contents">    
