@@ -13,4 +13,6 @@ public interface BoardMapper {
 	HashMap<String, Object> getVideoInfo(String VideoSeq);
 	boolean saveVideoName(HashMap<String, Object> map);
 	HashMap<String, Object> getLogin(HashMap<String, Object> map);
+	boolean saveUser(HashMap<String, Object> map);
+	String getUserName(String userId);
 }

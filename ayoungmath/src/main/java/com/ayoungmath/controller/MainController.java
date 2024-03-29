@@ -89,8 +89,15 @@ public class MainController {
 	}
 	
 	@GetMapping("/videoSave")
-	public ModelAndView savePage(HttpServletRequest request) {
+	public ModelAndView videoSavePage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/save/videoSave");
+        
+		return mav;
+	}
+	
+	@GetMapping("/userSave")
+	public ModelAndView userSavePage(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("thymeleaf/save/userSave");
         
 		return mav;
 	}
@@ -136,6 +143,19 @@ public class MainController {
 		return new ResponseEntity<>("ok",HttpStatus.OK);
 	}
 	
+	@PostMapping("/user/exec")
+	public ResponseEntity<String> execUser(HttpServletRequest request, 
+			@RequestParam("userId") String userId,
+			@RequestParam("password") String password,
+			@RequestParam("userName") String userName){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("password", password);
+		map.put("userName", userName);
+		boardService.saveUser(map);
+		return new ResponseEntity<>("ok",HttpStatus.OK);
+	}
+	
 	@GetMapping("/ajax/login")
 	public ResponseEntity<String> getLogin(HttpServletRequest request, 
 			@RequestParam("userId") String userId,
@@ -149,6 +169,15 @@ public class MainController {
 		}
 		return new ResponseEntity<>(userId,HttpStatus.OK);
 	}
+	
+	@GetMapping("/user/name")
+	public ResponseEntity<String> getUserName(HttpServletRequest request, 
+			@RequestParam("userId") String userId){
+		String userName = boardService.getUserName(userId);
+		
+		return new ResponseEntity<>(userName,HttpStatus.OK);
+	}
+	
 	
 	
 }

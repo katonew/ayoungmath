@@ -15,47 +15,47 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		        </a>
 		    </div>
 		    -->
-		    <div class="utill">                  
-		        <span class="name">
-		            <a href="javascript:void(0);" id="logoutBtn" class="btn sizeS bdGray">로그아웃</a>
-		        </span>           
+		    <div class="utill">           
+	            <span class="name"><strong id="userName">홍길동</strong></span>
+	            <a href="javascript:void(0);" id="logoutBtn" class="btn sizeS bdGray">로그아웃</a>
 		    </div>
 		</div>
 	</header>
 	<div class="container">
 		<nav class="sideNav">
 			<ul>
-				<li><a><i class="fontIcons google"></i>초등학교</a>
+				<li aria-label="1|2|3|4|5|6"><a><i class="fontIcons google"></i>초등학교</a>
 					<div class="dep2Menu">
 						<ul>
-							<li><a href="/list?classSeq=1">1학년</a></li>
-							<li><a href="/list?classSeq=2">2학년</a></li>
-							<li><a href="/list?classSeq=3">3학년</a></li>
-							<li><a href="/list?classSeq=4">4학년</a></li>
-							<li><a href="/list?classSeq=5">5학년</a></li>
-							<li><a href="/list?classSeq=6">6학년</a></li>
+							<li aria-label="1"><a href="/list?classSeq=1">1학년</a></li>
+							<li aria-label="2"><a href="/list?classSeq=2">2학년</a></li>
+							<li aria-label="3"><a href="/list?classSeq=3">3학년</a></li>
+							<li aria-label="4"><a href="/list?classSeq=4">4학년</a></li>
+							<li aria-label="5"><a href="/list?classSeq=5">5학년</a></li>
+							<li aria-label="6"><a href="/list?classSeq=6">6학년</a></li>
 						</ul>
 					</div>
 				</li>
-				<li><a><i class="fontIcons google"></i>중학교</a>
+				<li aria-label="7|8|9"><a><i class="fontIcons google"></i>중학교</a>
 					<div class="dep2Menu">
 						<ul>
-							<li><a href="/list?classSeq=7">1학년</a></li>
-							<li><a href="/list?classSeq=8">2학년</a></li>
-							<li><a href="/list?classSeq=9">3학년</a></li>
+							<li aria-label="7"><a href="/list?classSeq=7">1학년</a></li>
+							<li aria-label="8"><a href="/list?classSeq=8">2학년</a></li>
+							<li aria-label="9"><a href="/list?classSeq=9">3학년</a></li>
 						</ul>
 					</div>
 				</li>
-				<li><a><i class="fontIcons google"></i>고등학교</a>
+				<li aria-label="10|11|12"><a><i class="fontIcons google"></i>고등학교</a>
 					<div class="dep2Menu">
 						<ul>
-							<li><a href="/list?classSeq=10">1학년</a></li>
-							<li><a href="/list?classSeq=11">2학년</a></li>
-							<li><a href="/list?classSeq=12">3학년</a></li>
+							<li aria-label="10"><a href="/list?classSeq=10">1학년</a></li>
+							<li aria-label="11"><a href="/list?classSeq=11">2학년</a></li>
+							<li aria-label="12"><a href="/list?classSeq=12">3학년</a></li>
 						</ul>
 					</div>
 				</li>
 				<li id="videoSave"></li>
+				<li id="userSave"></li>
 			</ul>
 		</nav>
 </th:block>

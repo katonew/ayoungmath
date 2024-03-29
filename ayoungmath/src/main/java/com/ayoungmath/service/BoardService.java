@@ -29,4 +29,12 @@ public class BoardService {
 	public HashMap<String, Object> getLogin(HashMap<String, Object> map){
 		return boardMapper.getLogin(map);
 	}
+	
+	public boolean saveUser(HashMap<String, Object> map) {
+		return boardMapper.saveUser(map);
+	};
+	
+	public String getUserName(String userId){
+		return boardMapper.getUserName(userId);
+	}
 }

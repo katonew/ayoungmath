@@ -13,23 +13,30 @@ $(function () {
 	
 	$(".sideNav ul li").each(function(){
 	    var pageName = window.location.pathname;
-	    var label = $(this).attr("aria-label")??'noLabel';
+	    if(pageName=='/list'){
+			const urlSearchParams = new URLSearchParams(window.location.search);
+			const classSeq = urlSearchParams.get('classSeq');
+			var label = $(this).attr("aria-label")??'noLabel';
 	   
-	    var labelArr = label.split("|");
-	    var active = false;
-	    for(var i=0;i<labelArr.length;i++){	
-			if(pageName.includes( labelArr[i] )){
-				active = true;
-				break;
+		    var labelArr = label.split("|");
+		    var active = false;
+		    for(var i=0;i<labelArr.length;i++){	
+				if(classSeq.includes( labelArr[i] )){
+					active = true;
+					break;
+				}
 			}
+		       
+		    if( active == true){
+				$(".sideNav ul li").removeClass("on");
+		        $(this).addClass("on")
+		        $(this).find("a").next().toggle()
+		        
+		    }
+		}else if(pageName=='/view'){
+			
 		}
-	       
-	    if( active == true){
-			$(".sideNav ul li").removeClass("on");
-	        $(this).addClass("on")
-	        $(this).find("a").next().toggle()
-	        
-	    }
+	    
 	})
 	
 	$(".navBtn").on("click", function(){ $("body").toggleClass('navOff') })

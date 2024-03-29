@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{thymeleaf/common/default}">
+<th:block layout:fragment="content">
+	<div class="contentsWrap">
+		<div class="subTitle">
+			<h2>회원등록</h2>
+		</div>
+		<!-- 컨텐츠내용 -->
+		<section class="contentArea">
+			<div class="contents product">
+				<form id="frm-object">
+					<fieldset>
+						<div class="writeForm">
+							<div class="writerow">
+								<div class="t">아이디</div>
+								<div class="c">
+									<input id="userId" type="text" class="wp100" />
+								</div>
+							</div>
+							<div class="writerow">
+								<div class="t">비밀번호</div>
+								<div class="c">
+									<input id="password" type="password" class="wp100"/>
+								</div>
+							</div>
+							<div class="writerow">
+								<div class="t">이름</div>
+								<div class="c">
+									<input id="userName" type="text" class="wp100"/>
+								</div>
+							</div>
+							<div class="writeFormSubmit">
+								<button type="button" id="btn_cancel" onClick="goBack()" class="btn_can btn bdGray">목록</button>
+								<th:block>
+									<button type="button" id="btn_modify" class="btn_sub btn bgMain">저장</button>
+								</th:block>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</section>
+	</div>
+</th:block>
+<th:block layout:fragment="js">
+	<script>
+		$(document).ready(function(){
+    		$(document).on("click","#btn_modify",function(){
+				let userId = $('#userId').val();
+				let password = $('#password').val();
+				let userName = $('#userName').val();
+				
+				if(userId==0){
+					alertInfo('알림', '아이디을 입력하세요.');
+					return;
+				}else if(password==''){
+					alertInfo('알림', '비밀번호를 입력하세요.');
+					return;
+				}else if(userName==''){
+					alertInfo('알림', '이름을 입력하세요.');
+					return;
+				}
+				
+				$.ajax({
+					url : '/user/exec',
+					method : 'post',
+					data : {
+						'userId' : userId,
+						'password' : password,
+						'userName' : userName
+					},
+					success : function(d){
+						alertSuccessLink('성공','저장을 완료하였습니다.','/userSave');
+					},error : function(e,s){
+						console.log(e)
+						alertWarning('저장 실패', e.responseText)
+					}
+					
+				})
+				
+			});
+		});
+	</script>
+</th:block>
+</th:blcok>

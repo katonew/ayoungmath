@@ -25,11 +25,25 @@
 		VALUES (#{grade},#{videoName},#{fileExt})
 	</insert>
 	
+	<insert id="saveUser" parameterType="hashmap" >
+		INSERT INTO User_List(UserId,Pass,UserName)
+		VALUES (#{userId},#{password},#{userName})
+	</insert>
+	
 	<select id="getLogin" parameterType="hashmap" resultType="hashmap">
 	 	/* getLogin */ 
 		SELECT
 			*
 		FROM User_List
 		WHERE UserId = #{userId} AND Pass = #{password}
+	</select>
+	
+	<select id="getUserName" parameterType="hashmap" resultType="string">
+	 	/* getUserName */ 
+		SELECT
+			UserName
+		FROM User_List
+		WHERE UserId = #{userId}
+		LIMIT 1
 	</select>
 </mapper>
