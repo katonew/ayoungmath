@@ -8,9 +8,33 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 	<div class="wrap">
 		<script>
-		$(document).ready(function() {
-			
-		});
+			$(document).ready(function(){
+				let userId = getCookie("userId");
+				console.log(userId);
+				console.log(userId == 'admin')
+				if(userId == null || userId === ''){
+					window.location.href = '/';
+				}else if(userId == 'admin'){
+					$('#videoSave').html('<a href="/videoSave"><i class="fontIcons google"></i>영상제목등록</a>');
+				}
+				
+				$(document).on("click","#logoutBtn",function(){
+					Swal.fire({
+						title: '로그아웃',
+						html: '로그아웃하시겠습니까?',
+						icon: 'success',
+						confirmButtonText: '확인',
+						confirmButtonColor: '#00A651',
+						allowOutsideClick: false
+					})
+					.then(function(d){
+						deleteCookie("userId");
+						window.location.href = '/';
+					});
+					
+				});
+				
+			});
 		</script>
 		<!-- 공통 메뉴 선언 -->
 		<th:block th:replace="thymeleaf/common/nav :: navFragment"></th:block>

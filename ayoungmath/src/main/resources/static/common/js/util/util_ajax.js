@@ -1,3 +1,4 @@
+/*
 function ajaxSendLogin(_ajaxData, _timeout=10000){
 	alertLoading();
 	$.ajax({
@@ -33,6 +34,7 @@ function ajaxSendLogin(_ajaxData, _timeout=10000){
 		}
 	});
 }
+*/
 function ajaxSendSuccessNoAlertNoLink(_ajaxData, _timeout=10000){
 	$.ajax({
 		type : _ajaxData.type,

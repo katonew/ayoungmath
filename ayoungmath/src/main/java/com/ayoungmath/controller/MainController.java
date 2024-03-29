@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 
+import javax.servlet.http.Cookie;
 import org.springframework.core.io.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,10 +42,23 @@ public class MainController {
 	@GetMapping("/")
 	public ModelAndView pageMain(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/login");
-
+		Cookie[] cookies = request.getCookies();
 		//ModelAndView mav = new ModelAndView("thymeleaf/main");
-	
-		return mav;
+		// 특정 이름의 쿠키 값을 가져옵니다.
+		String userId = "";
+		for (Cookie cookie : cookies) {
+		  String cookieName = cookie.getName();
+		  if(cookieName.equals("userId")) {
+			  userId = cookie.getValue();
+		  };
+		}
+		
+		if(userId.equals("")) {
+			return mav;
+		}else {
+			return new ModelAndView("thymeleaf/list/list");
+		}
+		
 	}
 	
 	@GetMapping("/main")
@@ -73,9 +88,9 @@ public class MainController {
 		return mav;
 	}
 	
-	@GetMapping("/save")
+	@GetMapping("/videoSave")
 	public ModelAndView savePage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("thymeleaf/save/save");
+		ModelAndView mav = new ModelAndView("thymeleaf/save/videoSave");
         
 		return mav;
 	}
@@ -95,13 +110,27 @@ public class MainController {
 	}
 	
 	@PostMapping("/video/exec")
-	public ResponseEntity<String> execVideo(){
+	public ResponseEntity<String> execVideo(HttpServletRequest request, 
+			@RequestParam("grade") String grade,
+			@RequestParam("videoName") String videoName,
+			@RequestParam("fileExt") String fileExt){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("grade", grade);
+		map.put("videoName", videoName);
+		map.put("fileExt", fileExt);
+		boardService.saveVideoName(map);
 		return new ResponseEntity<>("ok",HttpStatus.OK);
 	}
 	
 	@GetMapping("/ajax/login")
-	public ResponseEntity<String> getLogin(){
-		return new ResponseEntity<>("ok",HttpStatus.OK);
+	public ResponseEntity<String> getLogin(HttpServletRequest request, 
+			@RequestParam("userId") String userId,
+			@RequestParam("password") String password){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("password", password);
+		
+		return new ResponseEntity<>(userId,HttpStatus.OK);
 	}
 	
 	

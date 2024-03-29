@@ -21,4 +21,8 @@ public class BoardService {
 	public HashMap<String, Object> getVideoInfo(String classSeq){
 		return boardMapper.getVideoInfo(classSeq);
 	}
+	
+	public boolean saveVideoName(HashMap<String, Object> map) {
+		return boardMapper.saveVideoName(map);
+	};
 }

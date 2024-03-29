@@ -20,7 +20,17 @@ layout:decorate="~{thymeleaf/common/default}">
 	<script src="/common/js/common.js" type="text/javascript" ></script>
 	<script src="/common/js/ui.js" type="text/javascript" ></script>
 	<!-- util js -->
-	
+	<script src="/common/js/util/util_ajax.js" type="text/javascript" ></script>
+	<script src="/common/js/util/util_sweetalert.js" type="text/javascript" ></script>
+	<script src="/common/js/util/util.js" type="text/javascript" ></script>
+	<!-- 플러그인 -->
+	<link rel="stylesheet" href="/common/js/plugin/sweetalert/minimal.css">
+	<script type="text/javascript" src="/common/js/plugin/sweetalert/sweetalert2.min.js"></script>    
+	<link rel="stylesheet" href="/common/js/plugin/jqueryui/jquery-ui.css">
+	<script type="text/javascript" src="/common/js/plugin/jqueryui/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/common/js/plugin/summernote/summernote-lite.css">
+	<script src="/common/js/plugin/summernote/summernote-lite.js"></script>
+	<script src="/common/js/plugin/summernote/lang/summernote-ko-KR.js"></script>
 	<th:block layout:fragment="css"></th:block>
 	<!-- 각 페이지별 script 선언 -->
 	<th:block layout:fragment="js"></th:block>

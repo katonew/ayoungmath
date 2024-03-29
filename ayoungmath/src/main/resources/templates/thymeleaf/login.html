@@ -7,10 +7,24 @@
 	<title>아영수학</title>
 	<!-- css, js -->
 	<link rel="stylesheet" href="/common/css/contents.css">
+	<link rel="stylesheet" href="/common/css/style.css">  
+	<link rel="stylesheet" href="/common/css/common.css">  
+	<script src="/common/js/jquery.js" type="text/javascript" ></script>
+	<script src="/common/js/common.js" type="text/javascript" ></script>
+	<script src="/common/js/ui.js" type="text/javascript" ></script>
+	<script src="/common/js/util/util.js" type="text/javascript" ></script>
+	<script src="/common/js/util/util_sweetalert.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/common/js/plugin/jqueryui/jquery-ui.js"></script>
+    <script type="text/javascript" src="/common/js/plugin/sweetalert/sweetalert2.min.js"></script>  
+    <!-- 플러그인 -->
+	<link rel="stylesheet" href="/common/js/plugin/sweetalert/minimal.css">  
+	<link rel="stylesheet" href="/common/js/plugin/jqueryui/jquery-ui.css">
+   
 </head>
 <html lang="ko" 
 xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:th="http://www.thymeleaf.org">
+
 <th:block layout:fragment="content">
 	<div class="loginForm">
 		<div class="loginLogo">
@@ -32,20 +46,25 @@ xmlns:th="http://www.thymeleaf.org">
 	</div>
 </th:block>
 <th:block>
+	<script src="/common/js/util/util_ajax.js" type="text/javascript" ></script>	    
+	<link rel="stylesheet" href="/common/js/plugin/jqueryui/jquery-ui.css">
+	<script type="text/javascript" src="/common/js/plugin/jqueryui/jquery-ui.js"></script>
 	<script>
 		function login(){
 			let userId = document.querySelector('#userId').value;			
 			let password = document.querySelector('#password').value;
-			console.log(userId)			
-			console.log(password)
 			$.ajax({
 				url : "/ajax/login",
 				method : "get",
 				data : {'userId' : userId,'password' : password},
-				success : function(d){
-					
+				success : function(data){
+					console.log(data);
+					let userId = data;
+					let expire = 60 * 60 * 24;
+                	setCookie("userId", userId, expire);
+					alertSuccessLink('성공','로그인 성공','/');
 				},errer : function(e){
-					console.log(e)
+					alertWarning('로그인 실패', '로그인 실패')
 				}
 				
 			})

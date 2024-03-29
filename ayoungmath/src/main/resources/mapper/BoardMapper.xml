@@ -20,4 +20,9 @@
 			Video_Seq = #{VideoSeq}
 	</select>
 	
+	<insert id="saveVideoName" parameterType="hashmap" >
+		INSERT INTO Video_List (Grade,Video_Name,File_Ext)
+		VALUES (#{grade},#{videoName},#{fileExt})
+	</insert>
+	
 </mapper>
