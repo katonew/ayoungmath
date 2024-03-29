@@ -25,4 +25,8 @@ public class BoardService {
 	public boolean saveVideoName(HashMap<String, Object> map) {
 		return boardMapper.saveVideoName(map);
 	};
+	
+	public HashMap<String, Object> getLogin(HashMap<String, Object> map){
+		return boardMapper.getLogin(map);
+	}
 }

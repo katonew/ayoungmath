@@ -10,8 +10,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<script>
 			$(document).ready(function(){
 				let userId = getCookie("userId");
-				console.log(userId);
-				console.log(userId == 'admin')
 				if(userId == null || userId === ''){
 					window.location.href = '/';
 				}else if(userId == 'admin'){
@@ -38,8 +36,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		</script>
 		<!-- 공통 메뉴 선언 -->
 		<th:block th:replace="thymeleaf/common/nav :: navFragment"></th:block>
-
-		
 		<th:block layout:fragment="content"></th:block>
 	</div>
 </body>

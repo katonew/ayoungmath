@@ -25,4 +25,11 @@
 		VALUES (#{grade},#{videoName},#{fileExt})
 	</insert>
 	
+	<select id="getLogin" parameterType="hashmap" resultType="hashmap">
+	 	/* getLogin */ 
+		SELECT
+			*
+		FROM User_List
+		WHERE UserId = #{userId} AND Pass = #{password}
+	</select>
 </mapper>

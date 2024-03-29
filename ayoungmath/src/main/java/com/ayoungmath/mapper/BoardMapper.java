@@ -12,4 +12,5 @@ public interface BoardMapper {
 	List<HashMap<String, Object>> getClassList(String classSeq);
 	HashMap<String, Object> getVideoInfo(String VideoSeq);
 	boolean saveVideoName(HashMap<String, Object> map);
+	HashMap<String, Object> getLogin(HashMap<String, Object> map);
 }

@@ -28,19 +28,19 @@ xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="content">
 	<div class="loginForm">
 		<div class="loginLogo">
-			<h2>로그인</h2>
+			<div class="loginLogo"><img th:src="@{'/getMainLogo'}"  type="image/png" style ="width:100%;" alt="logo" /></div>
 		</div>
-		<div class="loginForm">
-			<div class="loginInput">아이디</div>
-			<div class="loginInput"> 
-				<input id="userId" type="text">
+		<div class="">
+			<div class="mb10">아이디</div>
+			<div class=""> 
+				<input id="userId" class="mb10 w400" type="text">
 			</div>
-			<div class="loginInput">비밀번호</div> 
-			<div class="loginInput">
-				<input id="password" class="loginInput" type="password">
+			<div class="mb10">비밀번호</div> 
+			<div class="">
+				<input id="password" class="mb10 w400" type="password">
 			</div>
 			<div class="btndiv">
-				<button class="loginIdpw" type="button" onclick="login()"> 로그인 </button>
+				<button class="btn sizeL w400 bdGray" type="button" onclick="login()"> 로그인 </button>
 			</div>
 		</div>
 	</div>
@@ -63,8 +63,9 @@ xmlns:th="http://www.thymeleaf.org">
 					let expire = 60 * 60 * 24;
                 	setCookie("userId", userId, expire);
 					alertSuccessLink('성공','로그인 성공','/');
-				},errer : function(e){
-					alertWarning('로그인 실패', '로그인 실패')
+				},error : function(e){
+					console.log(e)
+					alertWarning('로그인 실패', e.responseText)
 				}
 				
 			})

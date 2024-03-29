@@ -56,7 +56,7 @@ public class MainController {
 		if(userId.equals("")) {
 			return mav;
 		}else {
-			return new ModelAndView("thymeleaf/list/list");
+			return new ModelAndView("thymeleaf/main");
 		}
 		
 	}
@@ -95,6 +95,20 @@ public class MainController {
 		return mav;
 	}
 	
+	@GetMapping("/getMainLogo")
+	public ResponseEntity<Resource> viewImage(){		
+		try {
+			FileUtil fileUtil = new FileUtil(resourcesLocation);
+			return fileUtil.fileImageView("ayoungmathimage.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e ) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@GetMapping("/video/{fileUrl}")
 	public ResponseEntity<Resource> viewImageGoods(@PathVariable("fileUrl") String fileUrl){
 		try {
@@ -129,7 +143,10 @@ public class MainController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("password", password);
-		
+		HashMap<String, Object> resultMap = boardService.getLogin(map);
+		if(resultMap==null || resultMap.isEmpty()) {
+			return new ResponseEntity<>("잘못된 로그인 정보입니다.",HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(userId,HttpStatus.OK);
 	}
 	
