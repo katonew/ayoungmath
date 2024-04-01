@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+layout:decorate="~{thymeleaf/common/default}">
+<th:block layout:fragment="content">     
+<div class="contentsWrap">
+    <div class="subTitle">
+        <h2>원생목록</h2>
+    </div>           
+    <!-- 검색영역 -->
+    <!--
+    <section class="seachArea">
+        <form id="frm-object" th:object="${form}">
+            <fieldset>
+                <legend>검색</legend>
+                <input type="text" id="text" placeholder="검색어를 입력하세요." />
+                <label for="text" class="hide">검색어</label>                    
+                <button type="submit" class="btn sizeM bgMain">검색</button>
+            </fieldset>
+        </form>
+    </section>
+    -->
+    <!-- //검색영역 -->
+    
+    <!-- 컨텐츠내용 -->
+    <section class="contentArea">
+        <div class="contentTop">
+            <div class="flLeft">
+				<!--건수 표현 구역-->
+            </div>
+            <div class="flRight">
+				<!--버튼구역-->
+            </div>                            
+        </div>
+        <div class="contents">    
+            <table class="tblBasic allchkBox">
+                <caption>상품목록</caption>
+                <colgroup>
+                    <col width="10%" />
+                    <col width="*" />
+                    <col width="20%" />
+                    <col width="20%" />
+                    <col width="10%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" name="" id="allChk" class="allChk" />
+                            <label for="allChk" class="hide">전체체크</label>
+                        </th>
+                        <th class="txtAliC">아이디</th>
+                        <th class="txtAliC">비밀번호</th>
+                        <th class="txtAliC">이름</th>
+                        <th class="txtAliC">상태</th>
+                    </tr>
+                </thead>
+            	<th:block th:if="${map != null and map.size > 0}">
+                    <tr th:each="item : ${map}">
+                        <td>
+                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
+                            <label for="ckbox1" class="hide">1</label>
+                        </td>
+                        <td th:text="${item.UserId}">아이디</td>
+                        <td th:text="${item.Pass}">비밀번호</td>
+                        <td th:text="${item.UserName}">원생이름</td>
+                        <td th:text="${item.Delete_Yn == 'N' ? '재학' : '퇴원'}">상태</td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${map != null and map.size > 0}">
+                    <tr class="noData">
+                        <td colspan="5">내용이 없습니다.</td>
+                    </tr>
+                </th:block>
+            </table>                    
+        </div>
+        
+        <div class="contentBottom">
+	        <div class="flRight">
+	            <a href="/userSave" class="btn sizeM bdGray">원생등록</a>
+	        </div>
+	    </div>
+        <!--
+        <div class="pagingWrap mt20">
+	       	<a class="prev">이전 페이지</a>
+			<a class="next">다음 페이지</a>
+       </div>
+       -->  
+    </section>
+    <!-- //컨텐츠내용 -->
+</div>
+</th:block>

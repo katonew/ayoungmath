@@ -108,6 +108,14 @@ public class MainController {
 		return mav;
 	}
 	
+	@GetMapping("/userList")
+	public ModelAndView userListPage(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("thymeleaf/list/userList");
+		List<HashMap<String, Object>> map = boardService.getAllUser();
+		mav.addObject("map", map);
+		return mav;
+	}
+	
 	@GetMapping("/getMainLogo")
 	public ResponseEntity<Resource> viewImage(){		
 		try {

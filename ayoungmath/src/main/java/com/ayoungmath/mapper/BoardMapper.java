@@ -15,4 +15,5 @@ public interface BoardMapper {
 	HashMap<String, Object> getLogin(HashMap<String, Object> map);
 	boolean saveUser(HashMap<String, Object> map);
 	String getUserName(String userId);
+	List<HashMap<String, Object>> getAllUser();
 }

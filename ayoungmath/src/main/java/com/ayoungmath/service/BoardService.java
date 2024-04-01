@@ -37,4 +37,8 @@ public class BoardService {
 	public String getUserName(String userId){
 		return boardMapper.getUserName(userId);
 	}
+	
+	public List<HashMap<String, Object>> getAllUser(){
+		return boardMapper.getAllUser();
+	}
 }
