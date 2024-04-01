@@ -24,10 +24,9 @@ layout:decorate="~{thymeleaf/common/default}">
 			            <div class="writerow">
 							<div class="t">영상</div>
 			            	<div class="c">
-								<video width="320" height="240" controls>
+								<video width="1280" height="720" controls controlsList="noplaybackrate nodownload" disablepictureinpicture  >
 							    <!-- 동적으로 파일 URL을 생성하여 설정 -->
 							    <source th:src="@{'/video/' + ${map['fileUrl']}}" type="video/mp4">
-							    Your browser does not support the video tag.
 								</video>
 							</div>
 			            </div>

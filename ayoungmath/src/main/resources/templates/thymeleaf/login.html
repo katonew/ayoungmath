@@ -53,6 +53,15 @@ xmlns:th="http://www.thymeleaf.org">
 		function login(){
 			let userId = document.querySelector('#userId').value;			
 			let password = document.querySelector('#password').value;
+			
+			if(userId==''){
+				alertWarning('로그인 실패', '아이디를 입력해주세요');
+				return;
+			}else if(password==''){
+				alertWarning('로그인 실패', '비밀번호를 입력해주세요');
+				return;
+			}
+			
 			$.ajax({
 				url : "/ajax/login",
 				method : "get",
@@ -70,5 +79,17 @@ xmlns:th="http://www.thymeleaf.org">
 				
 			})
 		}
+		function handleKeyPress(event) {
+		    // 눌린 키의 keyCode가 13이면 (Enter 키일 때)
+		    if (event.keyCode === 13) {
+		        login()
+		    }
+		}
+		
+		// userId 입력란에서 엔터 키 입력 감지
+		$('#userId').keypress(handleKeyPress);
+		
+		// password 입력란에서 엔터 키 입력 감지
+		$('#password').keypress(handleKeyPress);
 	</script>
 </th:block>
