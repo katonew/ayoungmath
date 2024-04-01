@@ -41,4 +41,8 @@ public class BoardService {
 	public List<HashMap<String, Object>> getAllUser(){
 		return boardMapper.getAllUser();
 	}
+	
+	public boolean userUpdate(List<Integer> map) {
+		return boardMapper.userUpdate(map);
+	};
 }

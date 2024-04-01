@@ -56,5 +56,19 @@
 		SELECT
 			*
 		FROM User_List
+		WHERE UserId != 'admin'
 	</select>
+	
+	<update id="userUpdate" parameterType="java.util.List">
+		/* userUpdate 원생 상태변경 */ 
+		UPDATE User_List
+	    SET Delete_Yn = CASE
+	        WHEN Delete_Yn = 'Y' THEN 'N'
+	        ELSE 'Y'
+	    END
+	    WHERE User_Seq IN
+	    <foreach collection="list" item="item" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</update>
 </mapper>

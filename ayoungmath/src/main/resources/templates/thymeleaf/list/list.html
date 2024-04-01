@@ -40,30 +40,35 @@ layout:decorate="~{thymeleaf/common/default}">
                 <colgroup>
                     <col width="10%" />
                     <col width="*" />
+                    <col width="30%" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" name="" id="allChk" class="allChk" />
-                            <label for="allChk" class="hide">전체체크</label>
-                        </th>
+                        <th>-</th>
                         <th class="txtAliC">제목</th>
+                        <th class="txtAliC">-</th>
                     </tr>
                 </thead>
             	<th:block th:if="${map != null and map.size > 0}">
                     <tr th:each="item : ${map}">
                         <td>
+							<!--
                             <input type="checkbox" name="" id="ckbox1" class="chkBox" />
                             <label for="ckbox1" class="hide">1</label>
+                            -->
+                            -
                         </td>
-                        <td class="txtAliL" >
+                        <td class="txtAliC" >
                             <a th:href="@{/view(viewSeq=${item.Video_Seq})}" class="ellipsis txtAliC" th:text="${item.Title}">제목</a>
+                        </td>
+                        <td class="txtAliC" >
+                            -
                         </td>
                     </tr>
                 </th:block>
                 <th:block th:unless="${map != null and map.size > 0}">
                     <tr class="noData">
-                        <td colspan="2">내용이 없습니다.</td>
+                        <td colspan="3">내용이 없습니다.</td>
                     </tr>
                 </th:block>
             </table>                    

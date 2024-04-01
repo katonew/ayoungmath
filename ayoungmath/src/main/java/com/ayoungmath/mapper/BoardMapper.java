@@ -16,4 +16,6 @@ public interface BoardMapper {
 	boolean saveUser(HashMap<String, Object> map);
 	String getUserName(String userId);
 	List<HashMap<String, Object>> getAllUser();
+	boolean userUpdate(List<Integer> map);
+	
 }

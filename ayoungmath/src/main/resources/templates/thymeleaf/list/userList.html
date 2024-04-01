@@ -46,10 +46,7 @@ layout:decorate="~{thymeleaf/common/default}">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" name="" id="allChk" class="allChk" />
-                            <label for="allChk" class="hide">전체체크</label>
-                        </th>
+                        <th>-</th>
                         <th class="txtAliC">아이디</th>
                         <th class="txtAliC">비밀번호</th>
                         <th class="txtAliC">이름</th>
@@ -59,8 +56,7 @@ layout:decorate="~{thymeleaf/common/default}">
             	<th:block th:if="${map != null and map.size > 0}">
                     <tr th:each="item : ${map}">
                         <td>
-                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
-                            <label for="ckbox1" class="hide">1</label>
+                            <input type="checkbox" class="chkBox" th:data-user-seq="${item.User_Seq}" />
                         </td>
                         <td th:text="${item.UserId}">아이디</td>
                         <td th:text="${item.Pass}">비밀번호</td>
@@ -79,6 +75,7 @@ layout:decorate="~{thymeleaf/common/default}">
         <div class="contentBottom">
 	        <div class="flRight">
 	            <a href="/userSave" class="btn sizeM bdGray">원생등록</a>
+	            <a href="javascript:void(0);" onclick="sendButton()" class="btn sizeM bdGray">퇴원처리</a>
 	        </div>
 	    </div>
         <!--
@@ -90,4 +87,37 @@ layout:decorate="~{thymeleaf/common/default}">
     </section>
     <!-- //컨텐츠내용 -->
 </div>
+</th:block>
+
+<th:block layout:fragment="js">
+	<script>
+		function sendButton(){
+	        // 체크된 체크박스들의 값을 담을 배열 생성
+	        var checkedValues = [];
+	        
+	        // 각 체크박스의 값을 확인하여 체크된 경우 배열에 추가
+	        $(".chkBox:checked").each(function(){
+				console.log($(this));
+				console.log($(this).data("user-seq"))
+	            checkedValues.push($(this).data("user-seq"));
+	        });
+	        
+	        // 만든 배열을 JSON 형식으로 변환
+	        var jsonData = JSON.stringify(checkedValues);
+	        
+	        // AJAX를 통해 서버로 데이터 전송
+	        $.ajax({
+	            url: '/user/update', // 엔드포인트 URL 수정 필요
+	            type: 'PUT',
+	            contentType: 'application/json',
+	            data: jsonData,
+	            success: function(response){
+	                alertSuccessLink('성공','수정을 완료하였습니다.','/userList');
+	            },error : function(e,s){
+					console.log(e)
+					alertWarning('수정 실패', e.responseText)
+				}
+	        });
+	    };
+	</script>
 </th:block>
