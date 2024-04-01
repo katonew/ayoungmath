@@ -16,7 +16,7 @@
 	                        <div class="writerow">
 								<div class="t">학년</div>
 								<div class="c">
-									<select id="grade">
+									<select id="grade" name="grade">
 										<option value="0">학년 선택</option>
 										<option value="1">초등학교 1학년</option>
 										<option value="2">초등학교 2학년</option>
@@ -36,13 +36,15 @@
 							<div class="writerow">
 								<div class="t">제목</div>
 								<div class="c">
-									<input id="videoName" type="text" class="wp100" />
+									<input id="title" name="title" type="text" class="wp100" />
 								</div>
 							</div>
 							<div class="writerow">
-								<div class="t">확장자</div>
-								<div class="c">
-									<input id="fileExt" type="text" class="wp100" value="MP4"/>
+								<div class="t">영상선택</div>
+								<div class="c fileBox">
+									<input id="videoRealName" type="text" class="wp50" disabled style="display:none;"/>
+									<button type="button" class=" btn sizeL bdGray" onclick="fileupload()">영상선택</button>
+									<input id="videoFile" name="videoFile" type="file" class="wp100" style="display:none;" accept="video/*"/>
 								</div>
 							</div>
 							<div class="writeFormSubmit">
@@ -61,41 +63,59 @@
 <th:block layout:fragment="js">
 	<script>
 		$(document).ready(function(){
-    		$(document).on("click","#btn_modify",function(){
-				let grade = $('#grade').val();
-				let videoName = $('#videoName').val();
-				let fileExt = $('#fileExt').val();
+    		$(document).on("click","#btn_modify",function(){				
+			    let grade = $('#grade').val();
+			    let title = $('#title').val();
+			    let videoFile = $('#videoFile')[0].files[0]; // 파일 객체 가져오기
 				
-				if(grade==0){
-					alertInfo('알림', '학년을 선택하세요.');
-					return;
-				}else if(videoName==''){
-					alertInfo('알림', '제목을 입력하세요.');
-					return;
-				}else if(fileExt==''){
-					alertInfo('알림', '확장자를 입력하세요.');
-					return;
-				}
+			    if(grade==0){
+			        alertInfo('알림', '학년을 선택하세요.');
+			        return;
+			    } else if(title==''){
+			        alertInfo('알림', '제목을 입력하세요.');
+			        return;
+			    } else if(videoFile == null){
+			        alertInfo('알림', '동영상을 등록해주세요.');
+			        return;
+			    }
 				
-				$.ajax({
-					url : '/video/exec',
-					method : 'post',
-					data : {
-						'grade' : grade,
-						'videoName' : videoName,
-						'fileExt' : fileExt
-					},
-					success : function(d){
-						alertSuccessLink('성공','저장을 완료하였습니다.','/videoSave');
-					},error : function(e,s){
-						console.log(e)
-						alertWarning('저장 실패', '저장 실패')
-					}
-					
-				})
+				alertLoading();
 				
+			    var formData = new FormData();
+			    formData.append('grade', grade);
+			    formData.append('title', title);
+			    formData.append('videoFile', videoFile);
+			
+			    $.ajax({
+			        url : '/video/exec',
+			        method : 'post',
+			        data : formData, // FormData 전송
+			        contentType: false, // 필수
+			        processData: false, // 필수
+			        success : function(d){
+			            alertSuccessLink('성공','저장을 완료하였습니다.','/videoSave');
+			        },
+			        error : function(e,s){
+			            console.log(e)
+			            alertWarning('저장 실패', e.responseText)
+			        }
+			    });
 			});
+
+			
+			//동영상 바뀌었을때
+			$('#videoFile').change(function() {
+			    var fileName = $(this).val().split('\\').pop(); // 파일 경로에서 파일명만 추출
+			    $('#videoRealName').val(fileName); // 텍스트 input에 파일명 설정
+			    $('#videoRealName').css('display','block');
+			});
+			
+			
 		});
+		
+		function fileupload(){
+			$('#videoFile').click();
+		};
 	</script>
 </th:block>
 </th:blcok>

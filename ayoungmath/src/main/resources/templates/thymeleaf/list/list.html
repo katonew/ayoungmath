@@ -10,6 +10,7 @@ layout:decorate="~{thymeleaf/common/default}">
         <h2>목록</h2>
     </div>           
     <!-- 검색영역 -->
+    <!--
     <section class="seachArea">
         <form id="frm-object" th:object="${form}">
             <fieldset>
@@ -20,6 +21,7 @@ layout:decorate="~{thymeleaf/common/default}">
             </fieldset>
         </form>
     </section>
+    -->
     <!-- //검색영역 -->
     
     <!-- 컨텐츠내용 -->
@@ -45,36 +47,33 @@ layout:decorate="~{thymeleaf/common/default}">
                             <input type="checkbox" name="" id="allChk" class="allChk" />
                             <label for="allChk" class="hide">전체체크</label>
                         </th>
-                        <th>제목</th>
+                        <th class="txtAliC">제목</th>
                     </tr>
                 </thead>
-                <tbody class="allchkArea">
-                	<th:block th:if="${map != null and map.size > 0}">
-	                    <tr th:each="item : ${map}">
-	                        <td>
-	                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
-	                            <label for="ckbox1" class="hide">1</label>
-	                        </td>
-	                        <td class="txtAliL" >
-	                            <a th:href="@{/view(viewSeq=${item.Video_Seq})}" class="ellipsis" th:text="${item.Video_Name}">제목</a>
-	                        </td>
-	                    </tr>
-                    </th:block>
-                    <th:block th:unless="${map != null and map.size > 0}">
-	                    <tr class="noData">
-	                        <td colspan="9">내용이 없습니다.</td>
-	                    </tr>
-                    </th:block>
-                </tbody>
+            	<th:block th:if="${map != null and map.size > 0}">
+                    <tr th:each="item : ${map}">
+                        <td>
+                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
+                            <label for="ckbox1" class="hide">1</label>
+                        </td>
+                        <td class="txtAliL" >
+                            <a th:href="@{/view(viewSeq=${item.Video_Seq})}" class="ellipsis txtAliC" th:text="${item.Title}">제목</a>
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${map != null and map.size > 0}">
+                    <tr class="noData">
+                        <td colspan="2">내용이 없습니다.</td>
+                    </tr>
+                </th:block>
             </table>                    
         </div>
-        <div class="contentBottom">
-      
-        </div>      
+        <!--
         <div class="pagingWrap mt20">
 	       	<a class="prev">이전 페이지</a>
 			<a class="next">다음 페이지</a>
-       </div>  
+       </div>
+       -->  
     </section>
     <!-- //컨텐츠내용 -->
 </div>

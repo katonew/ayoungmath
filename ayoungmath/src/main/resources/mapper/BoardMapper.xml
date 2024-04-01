@@ -21,8 +21,8 @@
 	</select>
 	
 	<insert id="saveVideoName" parameterType="hashmap" >
-		INSERT INTO Video_List (Grade,Video_Name,File_Ext)
-		VALUES (#{grade},#{videoName},#{fileExt})
+		INSERT INTO Video_List (Grade,Title,Video_Name,File_Ext)
+		VALUES (#{grade},#{title},#{videoName},#{fileExt})
 	</insert>
 	
 	<insert id="saveUser" parameterType="hashmap" >

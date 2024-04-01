@@ -229,7 +229,7 @@ public class FileUtil {
 	
 	private ResponseEntity<Resource> videoViewFile(String fileName) {
 	        
-			String path = resourcesLocation + fileName;
+			String path = resourcesLocation+"/video/" + fileName;
 			Resource resource = new FileSystemResource(path);
 			
 			HttpHeaders headers = new HttpHeaders();

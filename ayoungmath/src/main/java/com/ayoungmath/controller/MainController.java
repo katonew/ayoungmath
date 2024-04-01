@@ -3,6 +3,7 @@ package com.ayoungmath.controller;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,16 +16,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ayoungmath.service.BoardService;
+import com.ayoungmath.util.EncryptionUtil;
 import com.ayoungmath.util.FileUtil;
+import com.google.gson.Gson;
 import com.mysql.cj.protocol.x.Ok;
 
 @RestController
@@ -133,12 +139,21 @@ public class MainController {
 	@PostMapping("/video/exec")
 	public ResponseEntity<String> execVideo(HttpServletRequest request, 
 			@RequestParam("grade") String grade,
-			@RequestParam("videoName") String videoName,
-			@RequestParam("fileExt") String fileExt){
+			@RequestParam("title") String title,
+			MultipartFile videoFile){
+		FileUtil fileUtil = new FileUtil(resourcesLocation);
+		String uuid= UUID.randomUUID().toString();
+		String ext = StringUtils.getFilenameExtension(videoFile.getOriginalFilename().toLowerCase());
+		try {
+			fileUtil.fileUpload(uuid, videoFile,"video");
+		} catch (Exception e) {
+			return new ResponseEntity<>("동영상 저장에 실패하였습니다.",HttpStatus.BAD_REQUEST);			
+		} 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("grade", grade);
-		map.put("videoName", videoName);
-		map.put("fileExt", fileExt);
+		map.put("title", title);
+		map.put("videoName", uuid);
+		map.put("fileExt", ext);
 		boardService.saveVideoName(map);
 		return new ResponseEntity<>("ok",HttpStatus.OK);
 	}
@@ -151,6 +166,10 @@ public class MainController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("password", password);
+		HashMap<String, Object> resultMap = boardService.getLogin(map);
+		if(resultMap.size()>0) {
+			return new ResponseEntity<>("이미 있는 회원입니다.",HttpStatus.BAD_REQUEST);
+		}
 		map.put("userName", userName);
 		boardService.saveUser(map);
 		return new ResponseEntity<>("ok",HttpStatus.OK);
