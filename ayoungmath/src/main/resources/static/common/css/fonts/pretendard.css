@@ -69,3 +69,10 @@ http://scripts.sil.org/OFL
 	font-display: swap;
 	src: local('Pretendard Thin'), url('./pretendard/woff2/Pretendard-Thin.woff2') format('woff2'), url('./pretendard/woff/Pretendard-Thin.woff') format('woff');
 }
+
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
