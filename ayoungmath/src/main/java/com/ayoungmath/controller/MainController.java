@@ -54,11 +54,14 @@ public class MainController {
 		//ModelAndView mav = new ModelAndView("thymeleaf/main");
 		// 특정 이름의 쿠키 값을 가져옵니다.
 		String userId = "";
-		for (Cookie cookie : cookies) {
-		  String cookieName = cookie.getName();
-		  if(cookieName.equals("userId")) {
-			  userId = cookie.getValue();
-		  };
+		if (cookies != null && cookies.length > 0) {
+		    for (Cookie cookie : cookies) {
+		        String cookieName = cookie.getName();
+		        if (cookieName.equals("userId")) {
+		            userId = cookie.getValue();
+		            break; // Assuming "userId" cookie is unique, no need to continue looping
+		        }
+		    }
 		}
 		
 		if(userId.equals("")) {
