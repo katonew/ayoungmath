@@ -59,7 +59,7 @@ layout:decorate="~{thymeleaf/common/default}">
                             -
                         </td>
                         <td class="txtAliC" >
-                            <a th:href="@{/view(viewSeq=${item.Video_Seq})}" class="ellipsis txtAliC" th:text="${item.Title}">제목</a>
+                            <a th:href="@{/view(viewSeq=${item.Video_Seq}, classSeq=${item.Grade})}" class="ellipsis txtAliC" th:text="${item.Title}">제목</a>
                         </td>
                         <td class="txtAliC" >
                             -

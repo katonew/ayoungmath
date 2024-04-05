@@ -13,7 +13,7 @@ $(function () {
 	
 	$(".sideNav ul li").each(function(){
 	    var pageName = window.location.pathname;
-	    if(pageName=='/list'){
+	    if(pageName=='/list' || pageName=='/view'){
 			const urlSearchParams = new URLSearchParams(window.location.search);
 			const classSeq = urlSearchParams.get('classSeq');
 			var label = $(this).attr("aria-label")??'noLabel';
@@ -33,8 +33,6 @@ $(function () {
 		        $(this).find("a").next().toggle()
 		        
 		    }
-		}else if(pageName=='/view'){
-			
 		}
 	    
 	})

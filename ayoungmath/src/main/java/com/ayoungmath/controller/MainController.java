@@ -87,7 +87,9 @@ public class MainController {
 	}
 	
 	@GetMapping("/view")
-	public ModelAndView viewPage(HttpServletRequest request, @ModelAttribute("viewSeq") String VideoSeq) {
+	public ModelAndView viewPage(HttpServletRequest request, 
+			@ModelAttribute("viewSeq") String VideoSeq, 
+			@ModelAttribute("classSeq") String classSeq) {
 		ModelAndView mav = new ModelAndView("thymeleaf/view/view");
 		HashMap<String, Object> map = boardService.getVideoInfo(VideoSeq);
 		mav.addObject("map", map);
