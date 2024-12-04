@@ -13,7 +13,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				if(userId == null || userId === ''){
 					window.location.href = '/';
 				}else if(userId == 'admin'){
-					$('#videoSave').html('<a href="/videoSave"><i class="fontIcons google"></i>영상제목등록</a>');
+					$('#videoSave').html('<a href="/videoSave"><i class="fontIcons google"></i>영상등록</a>');
 					$('#userList').html('<a href="/userList"><i class="fontIcons google"></i>원생목록</a>');
 					$('#userName').html('관리자');
 				}else{

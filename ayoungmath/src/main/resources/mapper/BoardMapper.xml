@@ -71,4 +71,10 @@
 	        #{item}
 	    </foreach>
 	</update>
+
+	<delete id="deleteVideo" parameterType="string">
+		/* deleteVideo 비디오 삭제 */ 
+		DELETE FROM Video_List
+	    WHERE Video_Seq = #{VideoSeq}
+	</delete>
 </mapper>

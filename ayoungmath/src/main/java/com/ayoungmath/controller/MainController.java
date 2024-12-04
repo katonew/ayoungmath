@@ -26,14 +26,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ayoungmath.service.BoardService;
-import com.ayoungmath.util.EncryptionUtil;
 import com.ayoungmath.util.FileUtil;
-import com.google.gson.Gson;
-import com.mysql.cj.protocol.x.Ok;
 
 @RestController
 public class MainController {
@@ -51,7 +47,6 @@ public class MainController {
 	public ModelAndView pageMain(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/login");
 		Cookie[] cookies = request.getCookies();
-		//ModelAndView mav = new ModelAndView("thymeleaf/main");
 		// 특정 이름의 쿠키 값을 가져옵니다.
 		String userId = "";
 		if (cookies != null && cookies.length > 0) {
@@ -92,7 +87,21 @@ public class MainController {
 			@ModelAttribute("classSeq") String classSeq) {
 		ModelAndView mav = new ModelAndView("thymeleaf/view/view");
 		HashMap<String, Object> map = boardService.getVideoInfo(VideoSeq);
+		Cookie[] cookies = request.getCookies();
+		String userId = "";
+		if (cookies != null && cookies.length > 0) {
+		    for (Cookie cookie : cookies) {
+		        String cookieName = cookie.getName();
+		        if (cookieName.equals("userId")) {
+		            userId = cookie.getValue();
+		            break; // Assuming "userId" cookie is unique, no need to continue looping
+		        }
+		    }
+		}
 		mav.addObject("map", map);
+		mav.addObject("VideoSeq",VideoSeq);
+		mav.addObject("userId",userId);
+
 		
 		// 파일 경로를 생성하여 모델에 추가합니다.
         String fileUrl = map.get("Video_Name")+"."+map.get("File_Ext");
@@ -171,6 +180,28 @@ public class MainController {
 		map.put("fileExt", ext);
 		boardService.saveVideoName(map);
 		return new ResponseEntity<>("ok",HttpStatus.OK);
+	}
+
+	
+	@PostMapping("/video/delete")
+	public ResponseEntity<String> deleteVideo(HttpServletRequest request, 
+			@RequestParam("videoSeq") String videoSeq){
+		FileUtil fileUtil = new FileUtil(resourcesLocation);
+		HashMap<String, Object> videoMap = boardService.getVideoInfo(videoSeq);
+		String videoName = (String)videoMap.get("Video_Name");
+		String fileExt = (String)videoMap.get("File_Ext");
+		Integer grade = (Integer)videoMap.get("Grade");
+		String fileName = videoName+"."+fileExt;
+
+		System.out.println("FileName : " + fileName);
+		try{
+			fileUtil.fileDelete(fileName,"video");
+			boardService.deleteVideo(videoSeq);
+		}catch (Exception e){
+			return new ResponseEntity<>("동영상 삭제에 실패하였습니다.",HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(String.valueOf(grade),HttpStatus.OK);
+
 	}
 	
 	@PostMapping("/user/exec")

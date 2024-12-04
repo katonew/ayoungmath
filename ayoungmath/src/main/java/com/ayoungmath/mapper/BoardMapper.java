@@ -17,5 +17,5 @@ public interface BoardMapper {
 	String getUserName(String userId);
 	List<HashMap<String, Object>> getAllUser();
 	boolean userUpdate(List<Integer> map);
-	
+	boolean deleteVideo(String VideoSeq);	
 }

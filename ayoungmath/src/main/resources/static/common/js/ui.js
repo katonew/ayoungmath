@@ -10,7 +10,7 @@ $(function () {
 	        })
 	    }
 	})
-	
+  
 	$(".sideNav ul li").each(function(){
 	    var pageName = window.location.pathname;
 	    if(pageName=='/list' || pageName=='/view'){
@@ -21,22 +21,22 @@ $(function () {
 		    var labelArr = label.split("|");
 		    var active = false;
 		    for(var i=0;i<labelArr.length;i++){	
-				if(classSeq.includes( labelArr[i] )){
+				if(classSeq === labelArr[i]){
 					active = true;
 					break;
 				}
 			}
 		       
-		    if( active == true){
-				$(".sideNav ul li").removeClass("on");
-		        $(this).addClass("on")
-		        $(this).find("a").next().toggle()
+		  if( active == true){
+        $(".sideNav ul li").removeClass("on");
+        $(this).addClass("on")
+        $(this).find("a").next().toggle()
 		        
-		    }
+		   }
 		}
 	    
 	})
-	
+
 	$(".navBtn").on("click", function(){ $("body").toggleClass('navOff') })
 	
 	$(".topBtn").on("click", function(){

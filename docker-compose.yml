@@ -1,0 +1,40 @@
+version: '3.8'
+
+networks:
+  ayoungmath_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.2.0/24
+
+services:
+  java:
+    depends_on:
+      - db
+    image: "openjdk:17-jdk-slim"
+    container_name: ayoungmath
+    restart: always
+    working_dir: "/webapps"
+    command: "nohup java -jar ayoungmath-0.0.1.jar --spring.config.location=file:./properties/ayoungmath_application.properties 1> /dev/null 2>&1 &"
+    volumes:
+      - ./webapps:/webapps
+    environment:
+      TZ: Asia/Seoul
+    networks:
+      ayoungmath_network:
+        ipv4_address: 192.168.2.3
+
+  db:
+    image: mysql:8.0
+    container_name: ayoungmathDB
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 122795kk!@
+      MYSQL_DATABASE: ayoungmath
+      MYSQL_USER: ayoungmath
+      MYSQL_PASSWORD: 122795kk!@
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      ayoungmath_network:
+        ipv4_address: 192.168.2.2

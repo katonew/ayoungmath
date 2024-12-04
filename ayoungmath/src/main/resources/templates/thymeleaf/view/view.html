@@ -18,6 +18,7 @@ layout:decorate="~{thymeleaf/common/default}">
 						<div class="writerow">
 							<div class="t">제목</div>
 			            	<div class="c" th:text="${map.Title}" >제목</div>
+							<input type="hidden" id="VideoSeq" th:value="${VideoSeq}" />
 			            </div>
 					</div>      
 					<div class="writerow_box">
@@ -34,6 +35,7 @@ layout:decorate="~{thymeleaf/common/default}">
 				</div>
 	            <div class="writeFormSubmit">
 	                <button type="button" class="btn bdGray" onClick="goBack()">목록</button>
+					<button type="button" class="btn bgGreen" th:if="${userId == 'admin'}" onClick="deleteVideo()">삭제</button>
 	            </div>
 	
 	        </div>
@@ -45,5 +47,22 @@ layout:decorate="~{thymeleaf/common/default}">
 </th:block>
 <th:block layout:fragment="js">
 	<script th:inline="javascript">
+		function deleteVideo(){
+			let videoSeq = $('#VideoSeq').val();
+			$.ajax({
+				url : '/video/delete',
+				method : 'post',
+				data : {'videoSeq' : videoSeq},
+				success : function(d){
+					console.log(d);
+					alertSuccessLink('성공','삭제을 완료하였습니다.','/list?classSeq='+d);
+				},
+				error : function(e,s){
+					console.log(e)
+					alertWarning('삭제 실패', e.responseText);
+				}
+			});
+
+		}
 	</script>
 </th:block>

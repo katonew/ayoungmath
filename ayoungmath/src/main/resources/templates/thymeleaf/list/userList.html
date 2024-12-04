@@ -78,12 +78,6 @@ layout:decorate="~{thymeleaf/common/default}">
 	            <a href="javascript:void(0);" onclick="sendButton()" class="btn sizeM bdGray">퇴원처리</a>
 	        </div>
 	    </div>
-        <!--
-        <div class="pagingWrap mt20">
-	       	<a class="prev">이전 페이지</a>
-			<a class="next">다음 페이지</a>
-       </div>
-       -->  
     </section>
     <!-- //컨텐츠내용 -->
 </div>
@@ -97,8 +91,6 @@ layout:decorate="~{thymeleaf/common/default}">
 	        
 	        // 각 체크박스의 값을 확인하여 체크된 경우 배열에 추가
 	        $(".chkBox:checked").each(function(){
-				console.log($(this));
-				console.log($(this).data("user-seq"))
 	            checkedValues.push($(this).data("user-seq"));
 	        });
 	        
@@ -114,7 +106,6 @@ layout:decorate="~{thymeleaf/common/default}">
 	            success: function(response){
 	                alertSuccessLink('성공','수정을 완료하였습니다.','/userList');
 	            },error : function(e,s){
-					console.log(e)
 					alertWarning('수정 실패', e.responseText)
 				}
 	        });

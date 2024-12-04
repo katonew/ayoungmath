@@ -3,12 +3,12 @@ create database ayoungmath;
 use ayoungmath;
 
 DROP TABLE IF EXISTS Video_List;
-create table Video_List(
-	Video_Seq 		INT AUTO_INCREMENT PRIMARY KEY,
-    Grade			INT NOT NULL,
-	Title			VARCHAR(100) NOT NULL,
-    Video_Name 		VARCHAR(100) NOT NULL,
-	File_Ext 		VARCHAR(10) NOT NULL
+CREATE TABLE Video_List (
+    Video_Seq INT AUTO_INCREMENT PRIMARY KEY,
+    Grade INT NOT NULL,
+    Title VARCHAR(100) NOT NULL,
+    Video_Name VARCHAR(100) NOT NULL,
+    File_Ext VARCHAR(10) NOT NULL
 );
 
 DROP TABLE IF EXISTS User_List;

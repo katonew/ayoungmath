@@ -45,4 +45,8 @@ public class BoardService {
 	public boolean userUpdate(List<Integer> map) {
 		return boardMapper.userUpdate(map);
 	};
+
+	public boolean deleteVideo(String videoSeq) {
+		return boardMapper.deleteVideo(videoSeq);
+	};
 }
