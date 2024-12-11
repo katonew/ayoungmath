@@ -18,4 +18,8 @@ public interface BoardMapper {
 	List<HashMap<String, Object>> getAllUser();
 	boolean userUpdate(List<Integer> map);
 	boolean deleteVideo(String VideoSeq);	
+	List<HashMap<String, Object>> getGrade();
+	List<HashMap<String, Object>> getSection(int gradeSeq);
+	void updateSortOrder(HashMap<String, Object> map);
+	int getNextSortValue(int gradeSeq);
 }

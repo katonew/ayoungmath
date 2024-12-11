@@ -91,3 +91,24 @@ body.navOff footer{left: 80px;}
 .modalWrap > .imgModal > .closeBtn{color:#fff; font-size:2rem; position:absolute; right:0; top: -2.5rem; cursor:pointer;}
 .modalWrap > .imgModal > .imgArea{width:100%;}
 .modalWrap > .imgModal > .imgArea > img{width:100%; object-fit:contain;}
+
+
+/* 핸들러 */
+#sortableTable tr {
+    position: relative; /* 드래그가 제대로 작동하도록 설정 */
+}
+/* 기본 상태 (비활성화) */
+.drag-handle {
+    cursor: not-allowed; /* 드래그 불가능한 상태 */
+    color: #888; /* 흐릿한 색상 */
+    font-size: 14px;
+}
+
+/* 편집 상태 (활성화) */
+.drag-handle.editing {
+    cursor: move; /* 드래그 가능한 상태 */
+    color: #000; /* 진한 색상 */
+    font-size: 18px;
+    font-weight: bold;
+}
+

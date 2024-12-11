@@ -49,4 +49,20 @@ public class BoardService {
 	public boolean deleteVideo(String videoSeq) {
 		return boardMapper.deleteVideo(videoSeq);
 	};
+
+	public List<HashMap<String, Object>> getGrade(){
+		return boardMapper.getGrade();
+	};
+	
+	public List<HashMap<String, Object>> getSection(int gradeSeq){
+		return boardMapper.getSection(gradeSeq);
+	};
+	
+	public void updateSortOrder(HashMap<String, Object> map) {
+		boardMapper.updateSortOrder(map);
+	}
+	
+	public int getNextSortValue(int gradeSeq) {
+		return boardMapper.getNextSortValue(gradeSeq);
+	};
 }

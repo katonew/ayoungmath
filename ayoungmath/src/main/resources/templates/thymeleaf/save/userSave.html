@@ -28,7 +28,7 @@
 							<div class="writerow">
 								<div class="t">이름</div>
 								<div class="c">
-									<input id="userName" type="text" class="wp100"/>
+									<input id="Name" name="Name" type="text" class="wp100"/>
 								</div>
 							</div>
 							<div class="writeFormSubmit">
@@ -50,7 +50,8 @@
     		$(document).on("click","#btn_modify",function(){
 				let userId = $('#userId').val();
 				let password = $('#password').val();
-				let userName = $('#userName').val();
+				let Name = $('#Name').val();
+				console.log(Name);
 				
 				if(userId==0){
 					alertInfo('알림', '아이디을 입력하세요.');
@@ -58,7 +59,7 @@
 				}else if(password==''){
 					alertInfo('알림', '비밀번호를 입력하세요.');
 					return;
-				}else if(userName==''){
+				}else if(Name==''){
 					alertInfo('알림', '이름을 입력하세요.');
 					return;
 				}
@@ -69,7 +70,7 @@
 					data : {
 						'userId' : userId,
 						'password' : password,
-						'userName' : userName
+						'userName' : Name
 					},
 					success : function(d){
 						alertSuccessLink('성공','저장을 완료하였습니다.','/userSave');

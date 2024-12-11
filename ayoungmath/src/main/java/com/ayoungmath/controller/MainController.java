@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -77,14 +78,25 @@ public class MainController {
 	public ModelAndView listPage(HttpServletRequest request, @ModelAttribute("classSeq") String classSeq) {
 		ModelAndView mav = new ModelAndView("thymeleaf/list/list");
 		List<HashMap<String, Object>> map = boardService.getClassList(classSeq);
+		Cookie[] cookies = request.getCookies();
+		String userId = "";
+		if (cookies != null && cookies.length > 0) {
+		    for (Cookie cookie : cookies) {
+		        String cookieName = cookie.getName();
+		        if (cookieName.equals("userId")) {
+		            userId = cookie.getValue();
+		            break; // Assuming "userId" cookie is unique, no need to continue looping
+		        }
+		    }
+		}
+		mav.addObject("userId",userId);
 		mav.addObject("map", map);
 		return mav;
 	}
 	
 	@GetMapping("/view")
 	public ModelAndView viewPage(HttpServletRequest request, 
-			@ModelAttribute("viewSeq") String VideoSeq, 
-			@ModelAttribute("classSeq") String classSeq) {
+			@ModelAttribute("viewSeq") String VideoSeq) {
 		ModelAndView mav = new ModelAndView("thymeleaf/view/view");
 		HashMap<String, Object> map = boardService.getVideoInfo(VideoSeq);
 		Cookie[] cookies = request.getCookies();
@@ -113,8 +125,17 @@ public class MainController {
 	@GetMapping("/videoSave")
 	public ModelAndView videoSavePage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/save/videoSave");
+		List<HashMap<String, Object>> gradeList = boardService.getGrade();
+		mav.addObject("gradeList", gradeList);
         
 		return mav;
+	}
+
+	@GetMapping("/sectionList")
+	public List<HashMap<String, Object>> sectionList(HttpServletRequest request,
+	@RequestParam("gradeSeq") int gradeSeq) {
+		List<HashMap<String, Object>> sectionList = boardService.getSection(gradeSeq);
+        return sectionList;
 	}
 	
 	@GetMapping("/userSave")
@@ -164,7 +185,8 @@ public class MainController {
 	public ResponseEntity<String> execVideo(HttpServletRequest request, 
 			@RequestParam("grade") String grade,
 			@RequestParam("title") String title,
-			MultipartFile videoFile){
+			@RequestParam("section") String section,
+			MultipartFile videoFile) throws Exception{
 		FileUtil fileUtil = new FileUtil(resourcesLocation);
 		String uuid= UUID.randomUUID().toString();
 		String ext = StringUtils.getFilenameExtension(videoFile.getOriginalFilename().toLowerCase());
@@ -175,11 +197,20 @@ public class MainController {
 		} 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("grade", grade);
+		map.put("section", section);
 		map.put("title", title);
 		map.put("videoName", uuid);
 		map.put("fileExt", ext);
-		boardService.saveVideoName(map);
-		return new ResponseEntity<>("ok",HttpStatus.OK);
+		int sort = boardService.getNextSortValue(Integer.valueOf(section));
+		map.put("sort", sort);
+		try {
+			boardService.saveVideoName(map);
+			return new ResponseEntity<>("ok",HttpStatus.OK);
+		}catch (Exception e) {
+			fileUtil.fileDelete(uuid, "video");
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 	
@@ -213,8 +244,8 @@ public class MainController {
 		map.put("userId", userId);
 		map.put("password", password);
 		HashMap<String, Object> resultMap = boardService.getLogin(map);
-		if(resultMap.size()>0) {
-			return new ResponseEntity<>("이미 있는 회원입니다.",HttpStatus.BAD_REQUEST);
+		if (resultMap != null && (!resultMap.isEmpty() || resultMap.size() > 0)) {
+		    return new ResponseEntity<>("이미 있는 회원입니다.", HttpStatus.BAD_REQUEST);
 		}
 		map.put("userName", userName);
 		boardService.saveUser(map);
@@ -248,6 +279,25 @@ public class MainController {
 			@RequestBody List<Integer> userList){
 		boardService.userUpdate(userList);
 		return new ResponseEntity<>("OK",HttpStatus.OK);
+	}
+	
+	@PostMapping("/saveOrder")
+	@ResponseBody
+	public ResponseEntity<String> saveOrder(@RequestBody List<Integer> order) {
+	    try {
+	        for (int i = 0; i < order.size(); i++) {
+	        	HashMap<String, Object> map = new HashMap<>();
+	            int videoSeq = order.get(i);
+	            int sort = i + 1; // 새 순서
+	            map.put("videoSeq",videoSeq);
+	            map.put("sort",sort);
+	            boardService.updateSortOrder(map);
+	        }
+	        return new ResponseEntity<>("OK",HttpStatus.OK);
+	    } catch (Exception e) {
+			log.info(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+	    }
 	}
 	
 }

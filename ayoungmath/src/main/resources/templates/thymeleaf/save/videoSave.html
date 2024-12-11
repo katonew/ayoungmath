@@ -17,19 +17,12 @@
 								<div class="t">학년</div>
 								<div class="c">
 									<select id="grade" name="grade">
-										<option value="0">학년 선택</option>
-										<option value="1">초등학교 1학년</option>
-										<option value="2">초등학교 2학년</option>
-										<option value="3">초등학교 3학년</option>
-										<option value="4">초등학교 4학년</option>
-										<option value="5">초등학교 5학년</option>
-										<option value="6">초등학교 6학년</option>
-										<option value="7">중학교 1학년</option>
-										<option value="8">중학교 2학년</option>
-										<option value="9">중학교 3학년</option>
-										<option value="10">고등학교 1학년</option>
-										<option value="11">고등학교 2학년</option>
-										<option value="12">고등학교 3학년</option>
+										<option value="0">-</option>
+										<th:block th:each="item : ${gradeList}">
+											<option th:value="${item['Value']}"  th:text="${item['Grade_Name']}"></option>
+										</th:block>
+									</select>
+									<select id="section" name="section">
 									</select>
 								</div>
 							</div>
@@ -60,13 +53,44 @@
 <th:block layout:fragment="js">
 	<script>
 		$(document).ready(function(){
+			// select 값 변경 시 AJAX 호출
+			$('#grade').on('change', function () {
+				const gradeSeq = $(this).val(); // 선택된 값
+				console.log('gradeSeq : ', gradeSeq);
+
+				// AJAX 호출
+				$.ajax({
+					url: '/sectionList', // 서버에서 처리할 URL
+					type: 'GET', // 또는 'POST'
+					data: { gradeSeq: gradeSeq }, // 전달할 데이터
+					success: function (response) {
+						$('#section').empty();
+						$('#section').append('<option value="0">-</option>');
+						response.forEach(function (item) {
+							$('#section').append(
+								`<option value="${item.Section_Value}">${item.Section_Name}</option>`
+							);
+						});
+					},
+					error: function (xhr, status, error) {
+						// 실패 시 처리할 로직
+						console.error('Error:', error);
+						alert('실패!');
+					}
+				});
+			});
+
     		$(document).on("click","#btn_modify",function(){				
-			    let grade = $('#grade').val();
+			    let grade = $('#grade').val();		
+			    let section = $('#section').val() ? $('#section').val() : 0 ;
 			    let title = $('#title').val();
 			    let videoFile = $('#videoFile')[0].files[0]; // 파일 객체 가져오기
 				
 			    if(grade==0){
 			        alertInfo('알림', '학년을 선택하세요.');
+			        return;
+			    } else if(section==0){
+			        alertInfo('알림', '과목을 선택하세요.');
 			        return;
 			    } else if(title==''){
 			        alertInfo('알림', '제목을 입력하세요.');
@@ -80,6 +104,7 @@
 				
 			    var formData = new FormData();
 			    formData.append('grade', grade);
+			    formData.append('section', section);
 			    formData.append('title', title);
 			    formData.append('videoFile', videoFile);
 			
@@ -115,4 +140,3 @@
 		};
 	</script>
 </th:block>
-</th:blcok>

@@ -4,82 +4,115 @@ xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 layout:decorate="~{thymeleaf/common/default}">
+
 <th:block layout:fragment="content">     
-<div class="contentsWrap">
-    <div class="subTitle">
-        <h2>목록</h2>
-    </div>           
-    <!-- 검색영역 -->
-    <!--
-    <section class="seachArea">
-        <form id="frm-object" th:object="${form}">
-            <fieldset>
-                <legend>검색</legend>
-                <input type="text" id="text" placeholder="검색어를 입력하세요." />
-                <label for="text" class="hide">검색어</label>                    
-                <button type="submit" class="btn sizeM bgMain">검색</button>
-            </fieldset>
-        </form>
-    </section>
-    -->
-    <!-- //검색영역 -->
-    
-    <!-- 컨텐츠내용 -->
-    <section class="contentArea">
-        <div class="contentTop">
-            <div class="flLeft">
-				<!--건수 표현 구역-->
-            </div>
-            <div class="flRight">
-				<!--버튼구역-->
-            </div>                            
-        </div>
-        <div class="contents">    
-            <table class="tblBasic allchkBox">
-                <caption>상품목록</caption>
-                <colgroup>
-                    <col width="10%" />
-                    <col width="*" />
-                    <col width="30%" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>-</th>
-                        <th class="txtAliC">제목</th>
-                        <th class="txtAliC">-</th>
-                    </tr>
-                </thead>
-            	<th:block th:if="${map != null and map.size > 0}">
-                    <tr th:each="item : ${map}">
-                        <td>
-							<!--
-                            <input type="checkbox" name="" id="ckbox1" class="chkBox" />
-                            <label for="ckbox1" class="hide">1</label>
-                            -->
-                            -
-                        </td>
-                        <td class="txtAliC" >
-                            <a th:href="@{/view(viewSeq=${item.Video_Seq}, classSeq=${item.Grade})}" class="ellipsis txtAliC" th:text="${item.Title}">제목</a>
-                        </td>
-                        <td class="txtAliC" >
-                            -
-                        </td>
-                    </tr>
-                </th:block>
-                <th:block th:unless="${map != null and map.size > 0}">
-                    <tr class="noData">
-                        <td colspan="3">내용이 없습니다.</td>
-                    </tr>
-                </th:block>
-            </table>                    
-        </div>
-        <!--
-        <div class="pagingWrap mt20">
-	       	<a class="prev">이전 페이지</a>
-			<a class="next">다음 페이지</a>
-       </div>
-       -->  
-    </section>
-    <!-- //컨텐츠내용 -->
-</div>
+	<div class="contentsWrap">
+	    <div class="subTitle">
+	        <h2>목록</h2>
+	    </div>           
+	    <section class="contentArea">
+	        <div class="contentTop">
+	            <div class="flRight">
+					<!-- 처음엔 편집 버튼만 보이도록 설정 -->
+					<button id="editButton" type="button" class="btn sizeL bdMain" th:if="${userId == 'admin'}" onclick="enableEditing()">편집</button>  
+					<button id="saveButton" type="button" class="btn sizeL bdGray" onclick="saveOrder()" style="display: none;">저장</button>  
+	            </div> 
+	        </div>
+	        <div class="contents">    
+	            <table class="tblBasic allchkBox ">
+					<caption>영상목록</caption>
+	                <colgroup>
+	                    <col width="5%" />
+	                    <col width="*" />
+	                </colgroup>
+	                <thead>
+	                    <tr>
+	                        <th class="txtAliC">-</th>
+	                        <th class="txtAliL ml10"><p class="txtAliL">제목</p></th>
+	                    </tr>
+	                </thead>
+					<th:block th:if="${map != null and map.size > 0}">
+					    <tbody id="sortableTable">
+					        <tr th:each="item : ${map}" th:id="'item_' + ${item.Video_Seq}">
+					            <td class="txtAliC">
+					                <span class="drag-handle" th:text="${item.sort}">1</span>
+					            </td>
+					            <td class="txtAliL">
+					                <a th:href="@{/view(viewSeq=${item.Video_Seq}, classSeq=${item.Grade})}"
+					                   class="ellipsis txtAliC"
+					                   th:text="${item.Title}">제목</a>
+					            </td>
+					        </tr>
+					    </tbody>
+					</th:block>
+					<th:block th:unless="${map != null and map.size > 0}">
+					    <tr class="noData">
+					        <td class="txtAliC">-</td>
+					        <td class="txtAliL">내용이 없습니다.</td>
+					    </tr>
+					</th:block>
+	            </table>
+	        </div>
+	    </section>
+	</div>
+</th:block>
+
+<th:block layout:fragment="js">
+	<script>
+		$(function () {
+			// 초기 상태: sortable 비활성화
+			$("#sortableTable").sortable({
+				items: "tr",
+				handle: ".drag-handle",
+				disabled: true, // 처음에는 비활성화
+				update: function (event, ui) {
+					// 순서가 변경되었을 때의 동작
+					const order = $(this).sortable("toArray");
+					console.log("Updated order:", order);
+				}
+			}).disableSelection();
+		});
+
+		// 편집 모드 활성화
+		function enableEditing() {
+		    $("#sortableTable").sortable("option", "disabled", false); // sortable 활성화
+		    $(".drag-handle").html("☰"); // 드래그 아이콘으로 변경
+		    $(".drag-handle").addClass("editing"); // 활성화 클래스 추가
+		    $("#editButton").hide(); // 편집 버튼 숨기기
+		    $("#saveButton").show(); // 저장 버튼 보이기
+		}
+
+		function resetEditing() {
+		    $("#sortableTable").sortable("option", "disabled", true); // sortable 비활성화
+		    $(".drag-handle").html("-"); // 비활성화 상태로 텍스트 변경
+		    $(".drag-handle").removeClass("editing"); // 활성화 클래스 제거
+		    $("#saveButton").hide(); // 저장 버튼 숨기기
+		    $("#editButton").show(); // 편집 버튼 보이기
+		}
+
+		// 저장 버튼 동작
+		function saveOrder() {
+			const order = $("#sortableTable").sortable("toArray").map(id => parseInt(id.replace("item_", ""), 10)); // 숫자 추출
+		
+			$("#sortableTable tr").each(function (index) {
+		        $(this).find("td:first").text(index + 1); // 첫 번째 열에 새로운 순서 삽입
+		    });
+			
+			$.ajax({
+				url: "/saveOrder", // 백엔드 API 엔드포인트
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify(order),
+				success: function (response) {
+					console.log(response);
+					alertSuccess("성공", "정렬 순서가 저장되었습니다.");
+					resetEditing(); // 초기 상태로 복귀
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+					alertError("실패", "정렬 순서 저장에 실패하였습니다.");
+				}
+			});
+		}
+	</script>
 </th:block>

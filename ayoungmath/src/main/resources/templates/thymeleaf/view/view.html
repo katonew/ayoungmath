@@ -54,7 +54,6 @@ layout:decorate="~{thymeleaf/common/default}">
 				method : 'post',
 				data : {'videoSeq' : videoSeq},
 				success : function(d){
-					console.log(d);
 					alertSuccessLink('성공','삭제을 완료하였습니다.','/list?classSeq='+d);
 				},
 				error : function(e,s){

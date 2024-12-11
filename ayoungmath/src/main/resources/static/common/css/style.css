@@ -248,7 +248,7 @@ button:disabled{cursor:default;}
 .writerowCbox > div span{min-width: 80px; line-height: 40px;}
 
 .writeForm .writerow_box{display: flex; }
-.writeForm .writerow_box > .writerow{width: 50%;}
+.writeForm .writerow_box > .writerow{width: 100%;}
 
 .writeForm .writerow .writerowBtn{ position: absolute; right: 0; top: 25px;}
 .writeFormSubmit{padding: 30px 0; margin-top: 50px; text-align: center;}
