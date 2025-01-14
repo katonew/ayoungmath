@@ -56,11 +56,49 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							})
 						}
 			            $('nav.sideNav > ul').html(navHtml);
+			            initializeNavigation();
 			        },
 			        error: function (error) {
 			            console.error('Navigation data fetch error:', error);
 			        }
 				});
+				
+				function initializeNavigation() {
+				    var gnbLi = $(".sideNav > ul > li > a");
+				    gnbLi.each(function () {
+				        if ($(this).next("div").length == true) {
+				            $(this).append("<i class='arrow'></i>");
+				            $(this).on("click", function () {
+				                $(this).next().slideToggle();
+				                $(this).parent().toggleClass("on");
+				            });
+				        }
+				    });
+
+				    $(".sideNav ul li").each(function () {
+				        var pageName = window.location.pathname;
+				        if (pageName == '/list' || pageName == '/view') {
+				            const urlSearchParams = new URLSearchParams(window.location.search);
+				            const classSeq = urlSearchParams.get('classSeq');
+				            var label = $(this).attr("aria-label") ?? 'noLabel';
+
+				            var labelArr = label.split("|");
+				            var active = false;
+				            for (var i = 0; i < labelArr.length; i++) {
+				                if (classSeq === labelArr[i]) {
+				                    active = true;
+				                    break;
+				                }
+				            }
+
+				            if (active == true) {
+				                $(".sideNav ul li").removeClass("on");
+				                $(this).addClass("on");
+				                $(this).find("a").next().toggle();
+				            }
+				        }
+				    });
+				}
 				
 				
 				
