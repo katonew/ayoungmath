@@ -1,5 +1,6 @@
 package com.ayoungmath.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,4 +66,26 @@ public class BoardService {
 	public int getNextSortValue(int gradeSeq) {
 		return boardMapper.getNextSortValue(gradeSeq);
 	};
+	
+	public boolean saveSection(HashMap<String, Object> map) {
+		return boardMapper.saveSection(map);
+	};
+	
+	public int getMaxSectionValueByGrade() {
+		return boardMapper.getMaxSectionValueByGrade();
+	}
+	
+	public List<HashMap<String, Object>> getNavList() {
+		List<HashMap<String, Object>> grades = boardMapper.getGrade();
+		List<HashMap<String, Object>> result = new ArrayList<>();
+
+        for (HashMap<String, Object> grade : grades) {
+        	HashMap<String, Object> gradeMap = new HashMap<>();
+            gradeMap.put("gradeName", grade.get("Grade_Name"));
+            gradeMap.put("sections", boardMapper.getSection((Integer)grade.get("Grade_Seq"))); // 관계 매핑된 섹션 리스트
+            result.add(gradeMap);
+        }
+
+        return result;
+    }
 }

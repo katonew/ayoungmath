@@ -22,4 +22,6 @@ public interface BoardMapper {
 	List<HashMap<String, Object>> getSection(int gradeSeq);
 	void updateSortOrder(HashMap<String, Object> map);
 	int getNextSortValue(int gradeSeq);
+	boolean saveSection(HashMap<String, Object> map);
+	int getMaxSectionValueByGrade();
 }

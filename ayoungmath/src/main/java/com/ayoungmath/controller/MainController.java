@@ -138,10 +138,17 @@ public class MainController {
         return sectionList;
 	}
 	
+	@GetMapping("/sectionSave")
+	public ModelAndView sectionSave(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("thymeleaf/save/sectionSave");
+		List<HashMap<String, Object>> gradeList = boardService.getGrade();
+		mav.addObject("gradeList", gradeList);
+        return mav;
+	}
+	
 	@GetMapping("/userSave")
 	public ModelAndView userSavePage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("thymeleaf/save/userSave");
-        
 		return mav;
 	}
 	
@@ -249,6 +256,27 @@ public class MainController {
 		}
 		map.put("userName", userName);
 		boardService.saveUser(map);
+		return new ResponseEntity<>("ok",HttpStatus.OK);
+	}
+	
+	@GetMapping("/navList")
+    public ResponseEntity<List<HashMap<String, Object>>> getNavList() {
+        List<HashMap<String, Object>> navList = boardService.getNavList();
+        System.out.println(navList.toString());
+        return ResponseEntity.ok(navList);
+    }
+	
+	@PostMapping("/section/exec")
+	public ResponseEntity<String> execSection(HttpServletRequest request, 
+			@RequestParam("grade") String grade,
+			@RequestParam("title") String title ){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("grade", grade);
+		map.put("title", title);
+		
+		int maxValue = boardService.getMaxSectionValueByGrade();
+		map.put("sectionValue", ++maxValue);
+		boardService.saveSection(map);
 		return new ResponseEntity<>("ok",HttpStatus.OK);
 	}
 	

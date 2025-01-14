@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{thymeleaf/common/default}">
+<th:block layout:fragment="content">
+	<div class="contentsWrap">
+		<div class="subTitle">
+			<h2>하위목록등록</h2>
+		</div>
+		<!-- 컨텐츠내용 -->
+		<section class="contentArea">
+			<div class="contents product">
+				<form id="frm-object">
+					<fieldset>
+						<div class="writeForm">
+	                        <div class="writerow">
+								<div class="t">학년</div>
+								<div class="c">
+									<select id="grade" name="grade">
+										<option value="0">-</option>
+										<th:block th:each="item : ${gradeList}">
+											<option th:value="${item['Value']}"  th:text="${item['Grade_Name']}"></option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							<div class="writerow">
+								<div class="t">하위제목</div>
+								<div class="c">
+									<input id="title" name="title" type="text" class="wp100" />
+								</div>
+							</div>
+							<div class="writeFormSubmit">
+								<button type="button" id="btn_modify" class="btn_sub btn bgMain">저장</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</section>
+	</div>
+</th:block>
+<th:block layout:fragment="js">
+	<script>
+		$(document).ready(function(){
+
+    		$(document).on("click","#btn_modify",function(){
+			    let title = $('#title').val();
+			    let grade = $('#grade').val();
+			    
+			    if(grade=='0'){
+			        alertInfo('알림', '학년을 선택해주세요.');
+			        return;
+			    }else if(title==''){
+			        alertInfo('알림', '제목을 입력하세요.');
+			        return;
+			    }
+			    
+
+			    var formData = new FormData();
+			    formData.append('grade', grade);
+			    formData.append('title', title);
+			
+			    $.ajax({
+			        url : '/section/exec',
+			        method : 'post',
+			        data : formData, // FormData 전송
+			        contentType: false, // 필수
+			        processData: false, // 필수
+			        success : function(d){
+			            alertSuccessLink('성공','저장을 완료하였습니다.','/sectionSave');
+			        },
+			        error : function(e,s){
+			            console.log(e)
+			            alertWarning('저장 실패', e.responseText)
+			        }
+			    });
+			});
+
+			
+			
+		});
+		
+		function fileupload(){
+			$('#videoFile').click();
+		};
+	</script>
+</th:block>

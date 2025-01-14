@@ -9,27 +9,60 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<div class="wrap">
 		<script>
 			$(document).ready(function(){
-				let userId = getCookie("userId");
-				if(userId == null || userId === ''){
-					window.location.href = '/';
-				}else if(userId == 'admin'){
-					$('#videoSave').html('<a href="/videoSave"><i class="fontIcons google"></i>영상등록</a>');
-					$('#userList').html('<a href="/userList"><i class="fontIcons google"></i>원생목록</a>');
-					$('#userName').html('관리자');
-				}else{
-					$.ajax({
-						url : "/user/name",
-						method : "get",
-						data : {'userId' : userId},
-						success : function(data){
-							let userName = data
-							$('#userName').html(userName);
-						},error : function(e){
-							
-						}
+
+				$.ajax({
+			        url: '/navList',
+			        method: 'GET',
+			        success: function (data) {
+			            let navHtml = '';
+			            let userId = getCookie("userId");
 						
-					})
-				}
+			            data.forEach(grade => {
+			                navHtml += `
+			                    <li aria-label="${grade.sections.map(s => s.Section_Seq).join('|')}">
+			                        <a><i class="fontIcons google"></i>${grade.gradeName}</a>
+			                        <div class="dep2Menu">
+			                            <ul>
+			                                ${grade.sections.map(section => `
+			                                    <li aria-label="${section.Section_Value}">
+			                                        <a href="/list?classSeq=${section.Section_Value}">${section.Section_Name}</a>
+			                                    </li>
+			                                `).join('')}
+			                            </ul>
+			                        </div>
+			                    </li>
+			                `;
+			            });
+			            
+						if(userId == null || userId === ''){
+							window.location.href = '/';
+						}else if(userId == 'admin'){
+							navHtml += '<li id="videoSave"><a href="/videoSave"><i class="fontIcons google"></i>영상등록</a></li>';
+							navHtml += '<li id="userList"><a href="/userList"><i class="fontIcons google"></i>원생목록</a></li>';
+							navHtml += '<li id="sectionSave"><a href="/sectionSave"><i class="fontIcons google"></i>하위목록등록</a></li>';
+							$('#userName').html('관리자');
+						}else{
+							$.ajax({
+								url : "/user/name",
+								method : "get",
+								data : {'userId' : userId},
+								success : function(data){
+									let userName = data
+									$('#userName').html(userName);
+								},error : function(e){
+									
+								}
+								
+							})
+						}
+			            $('nav.sideNav > ul').html(navHtml);
+			        },
+			        error: function (error) {
+			            console.error('Navigation data fetch error:', error);
+			        }
+				});
+				
+				
 				
 				$(document).on("click","#logoutBtn",function(){
 					Swal.fire({
@@ -48,6 +81,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				});
 				
 			});
+			
+			
 		</script>
 		<!-- 공통 메뉴 선언 -->
 		<th:block th:replace="thymeleaf/common/nav :: navFragment"></th:block>

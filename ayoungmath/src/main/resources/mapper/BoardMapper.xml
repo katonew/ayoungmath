@@ -42,6 +42,12 @@
 		VALUES (#{userId},#{password},#{userName})
 	</insert>
 	
+	<insert id="saveSection" parameterType="hashmap" >
+	 	/* saveSection 하위목록추가 */ 
+		INSERT INTO section_list (Section_Name,Section_Value,Grade_Seq)
+	    VALUES (#{title},#{sectionValue},#{grade})
+	</insert>
+	
 	<select id="getLogin" parameterType="hashmap" resultType="hashmap">
 	 	/* getLogin 아이디와 패스워드로 로그인 */ 
 		SELECT
@@ -84,6 +90,11 @@
 		FROM section_list
 		WHERE Grade_Seq = #{gradeSeq}
 		ORDER BY Section_Value
+	</select>
+	
+	<select id="getMaxSectionValueByGrade" resultType="integer">
+	 	/* getMaxSectionValueByGrade 섹션 제일 큰거 */ 
+		SELECT MAX(Section_Value) AS max_value FROM section_list
 	</select>
 	
 	<update id="updateSortOrder" parameterType="map">

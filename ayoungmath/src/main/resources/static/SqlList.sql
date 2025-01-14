@@ -17,7 +17,7 @@ create table User_List(
 	UserId varchar(20) NOT NULL,
     Pass varchar(100) NOT NULL,
     UserName varchar(10) NOT NULL,
-	Delete_Yn char(1) default 'Y' NOT NULL
+	Delete_Yn char(1) default 'N' NOT NULL
 );
 
 insert into User_List(UserId,Pass,UserName)
@@ -37,13 +37,13 @@ insert into grade_list (Grade_Name,Value)
 values('초등3학년',1),('초등4학년',2),('초등5학년',3),('초등6학년',4),('중등1학년',5),('중등2학년',6),('중등3학년',7),('고등1학년',8),('고등2학년',9),('고등3학년',10)
 
 
+DROP TABLE IF EXISTS section_list;
 create table section_list(
 	Section_Seq int auto_increment primary key,
 	Section_Name varchar(100) not null,
 	Section_Value int not null,
 	Grade_Seq int not null
 );
-DROP TABLE IF EXISTS section_list;
 insert into section_list (Section_Name,Section_Value,Grade_Seq)
 values
 ('개념쎈-1학기',1,1),

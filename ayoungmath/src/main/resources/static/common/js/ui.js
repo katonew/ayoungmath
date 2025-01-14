@@ -10,7 +10,7 @@ $(function () {
 	        })
 	    }
 	})
-  
+
 	$(".sideNav ul li").each(function(){
 	    var pageName = window.location.pathname;
 	    if(pageName=='/list' || pageName=='/view'){
