@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{thymeleaf/common/default}">
+<th:block layout:fragment="content">
+	<div class="contentsWrap">
+		<div class="subTitle">
+			<h2>하위목록삭제</h2>
+		</div>
+		<!-- 컨텐츠내용 -->
+		<section class="contentArea">
+			<div class="contents product">
+				<div class="writeForm">
+					<div class="writerow">
+						<div class="t">학년</div>
+						<div class="c">
+							<select id="grade" name="grade">
+								<option value="0">-</option>
+								<th:block th:each="item : ${gradeList}">
+									<option th:value="${item['Value']}" th:text="${item['Grade_Name']}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="writerow">
+						<div class="t">하위목록</div>
+						<div class="c" id="seletedList">
+							<select id="section-select"></select>
+						</div>
+					</div>
+					<div class="writeFormSubmit">
+						<button type="button" id="btn_delete" class="btn_sub btn bgMain">삭제</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</th:block>
+<th:block layout:fragment="js">
+	<script>
+		$(document).ready(function(){
+			$('#grade').on('change', function(){
+				let gradeSeq = $(this).val();
+				if(gradeSeq != '0'){
+					loadSectionList(gradeSeq);
+				} else {
+					$('#section-select').html('');
+				}
+			});
+
+			function loadSectionList(gradeSeq){
+				$.ajax({
+					url: '/sectionList',
+					method: 'GET',
+					data: { gradeSeq: gradeSeq },
+					success: function(data){
+						let selectHtml = '';
+						data.forEach(function(section){
+							selectHtml += '<option value="' + section.Section_Seq + '">' + section.Section_Name + '</option>';
+						});
+						$('#section-select').html(selectHtml);
+					},
+					error: function(e){
+						console.log(e);
+						alertWarning('조회 실패', '하위 메뉴 목록을 불러오는데 실패했습니다.');
+					}
+				});
+			}
+
+			$('#btn_delete').on('click', function(){
+				let sectionSeq = $('#section-select').val();
+				if(!sectionSeq){
+					alertInfo('알림', '삭제할 하위 메뉴를 선택해주세요.');
+					return;
+				}
+				if(confirm('정말로 삭제하시겠습니까?')){
+					$.ajax({
+						url: '/section/delete',
+						method: 'POST',
+						data: { sectionSeq: sectionSeq },
+						success: function(response){
+							if(response === 'ok'){
+								alertSuccessLink('삭제 완료', '하위 메뉴가 성공적으로 삭제되었습니다.','/sectionDelete');
+							} else {
+								alertWarning('삭제 실패', response);
+							}
+						},
+						error: function(e){
+							console.log(e);
+							alertWarning('삭제 실패', '하위 메뉴 삭제 중 오류가 발생했습니다.');
+						}
+					});
+				}
+			});
+		});
+	</script>
+</th:block>
+</html>

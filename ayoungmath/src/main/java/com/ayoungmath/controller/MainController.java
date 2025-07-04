@@ -200,6 +200,7 @@ public class MainController {
 		try {
 			fileUtil.fileUpload(uuid, videoFile,"video");
 		} catch (Exception e) {
+			log.warn("동영상 저장에 실패 :: " + e.getMessage());
 			return new ResponseEntity<>("동영상 저장에 실패하였습니다.",HttpStatus.BAD_REQUEST);			
 		} 
 		HashMap<String, Object> map = new HashMap<>();
@@ -262,7 +263,6 @@ public class MainController {
 	@GetMapping("/navList")
     public ResponseEntity<List<HashMap<String, Object>>> getNavList() {
         List<HashMap<String, Object>> navList = boardService.getNavList();
-        System.out.println(navList.toString());
         return ResponseEntity.ok(navList);
     }
 	
@@ -278,6 +278,25 @@ public class MainController {
 		map.put("sectionValue", ++maxValue);
 		boardService.saveSection(map);
 		return new ResponseEntity<>("ok",HttpStatus.OK);
+	}
+
+	@PostMapping("/section/delete")
+	public ResponseEntity<String> deleteSection(HttpServletRequest request,
+											  @RequestParam("sectionSeq") String sectionSeq){
+		try{
+			boardService.deleteSection(sectionSeq);
+		}catch (Exception e){
+			return new ResponseEntity<>("하위 메뉴 삭제에 실패하였습니다.",HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>("ok",HttpStatus.OK);
+	}
+
+	@GetMapping("/sectionDelete")
+	public ModelAndView sectionDelete(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("thymeleaf/delete/sectionDelete");
+		List<HashMap<String, Object>> gradeList = boardService.getGrade();
+		mav.addObject("gradeList", gradeList);
+		return mav;
 	}
 	
 	@GetMapping("/ajax/login")
@@ -323,7 +342,7 @@ public class MainController {
 	        }
 	        return new ResponseEntity<>("OK",HttpStatus.OK);
 	    } catch (Exception e) {
-			log.info(e.getMessage());
+			log.warn("정렬실패: " + e.getMessage(), e);
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 	    }
 	}

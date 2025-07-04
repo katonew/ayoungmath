@@ -74,6 +74,10 @@ public class BoardService {
 	public int getMaxSectionValueByGrade() {
 		return boardMapper.getMaxSectionValueByGrade();
 	}
+
+	public boolean deleteSection(String sectionSeq) {
+		return boardMapper.deleteSection(sectionSeq);
+	}
 	
 	public List<HashMap<String, Object>> getNavList() {
 		List<HashMap<String, Object>> grades = boardMapper.getGrade();

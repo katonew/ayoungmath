@@ -24,4 +24,5 @@ public interface BoardMapper {
 	int getNextSortValue(int gradeSeq);
 	boolean saveSection(HashMap<String, Object> map);
 	int getMaxSectionValueByGrade();
+	boolean deleteSection(String sectionSeq);
 }

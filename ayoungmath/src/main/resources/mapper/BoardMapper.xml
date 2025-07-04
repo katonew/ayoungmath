@@ -99,7 +99,7 @@
 	
 	<update id="updateSortOrder" parameterType="map">
 		/* updateSortOrder 비디오 순서변경 */ 
-		UPDATE video_list
+		UPDATE Video_List
 	    SET sort = #{sort}
 	    WHERE Video_Seq = #{videoSeq}
 	</update>
@@ -121,5 +121,11 @@
 		/* deleteVideo 비디오 삭제 */ 
 		DELETE FROM Video_List
 	    WHERE Video_Seq = #{VideoSeq}
+	</delete>
+
+	<delete id="deleteSection" parameterType="string">
+		/* deleteSection 하위메뉴 삭제 */
+		DELETE FROM section_list
+		WHERE Section_Seq = #{sectionSeq}
 	</delete>
 </mapper>
