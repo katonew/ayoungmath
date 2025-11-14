@@ -5,13 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+
 import com.ayoungmath.mapper.BoardMapper;
+import com.ayoungmath.util.FileUtil;
 
 @Service
 public class BoardService {
 	
+	@Value("${file.upload.location}")
+    private String resourcesLocation;
+
 	@Autowired
 	private BoardMapper boardMapper;
 	
@@ -76,6 +82,23 @@ public class BoardService {
 	}
 
 	public boolean deleteSection(String sectionSeq) {
+		String sectionValue = boardMapper.getSectionValueBySeq(sectionSeq);
+		if (sectionValue != null) {
+			List<HashMap<String, Object>> videosToDelete = boardMapper.getVideosInfoBySectionValue(sectionValue);
+			FileUtil fileUtil = new FileUtil(resourcesLocation);
+			for (HashMap<String, Object> video : videosToDelete) {
+				String videoName = (String) video.get("Video_Name");
+				String fileExt = (String) video.get("File_Ext");
+				String fileName = videoName + "." + fileExt;
+				try {
+					fileUtil.fileDelete(fileName, "video");
+				} catch (Exception e) {
+					// 파일 삭제 실패 시 로그를 남기거나 예외 처리
+					e.printStackTrace();
+				}
+			}
+			boardMapper.deleteVideosBySectionValue(sectionValue);
+		}
 		return boardMapper.deleteSection(sectionSeq);
 	}
 	
