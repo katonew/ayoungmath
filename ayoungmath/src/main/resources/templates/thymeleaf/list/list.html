@@ -8,7 +8,7 @@ layout:decorate="~{thymeleaf/common/default}">
 <th:block layout:fragment="content">     
 	<div class="contentsWrap">
 	    <div class="subTitle">
-	        <h2>목록</h2>
+	        <h2 th:text="${sectionName}"></h2>
 	    </div>           
 	    <section class="contentArea">
 	        <div class="contentTop">

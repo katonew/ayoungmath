@@ -26,6 +26,7 @@ public interface BoardMapper {
 	int getMaxSectionValueByGrade();
 	boolean deleteSection(String sectionSeq);
 	String getSectionValueBySeq(String sectionSeq);
+	String getSectionNameBySeq(String sectionSeq);
 	boolean deleteVideosBySectionValue(String sectionValue);
 	List<HashMap<String, Object>> getVideosInfoBySectionValue(String sectionValue);
 }

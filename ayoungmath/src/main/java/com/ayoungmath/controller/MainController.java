@@ -89,6 +89,10 @@ public class MainController {
 		        }
 		    }
 		}
+
+		String sectionName = boardService.getSectionNameBySeq(classSeq);
+
+		mav.addObject("sectionName", sectionName);
 		mav.addObject("userId",userId);
 		mav.addObject("map", map);
 		return mav;

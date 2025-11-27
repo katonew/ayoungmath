@@ -36,7 +36,7 @@ layout:decorate="~{thymeleaf/common/default}">
         </div>
         <div class="contents">    
             <table class="tblBasic allchkBox">
-                <caption>상품목록</caption>
+                <caption>원생목록</caption>
                 <colgroup>
                     <col width="10%" />
                     <col width="*" />
@@ -48,7 +48,7 @@ layout:decorate="~{thymeleaf/common/default}">
                     <tr>
                         <th>-</th>
                         <th class="txtAliC">아이디</th>
-                        <th class="txtAliC">비밀번호</th>
+                        <th class="txtAliC password">비밀번호</th>
                         <th class="txtAliC">이름</th>
                         <th class="txtAliC">상태</th>
                     </tr>
@@ -58,10 +58,10 @@ layout:decorate="~{thymeleaf/common/default}">
                         <td>
                             <input type="checkbox" class="chkBox" th:data-user-seq="${item.User_Seq}" />
                         </td>
-                        <td th:text="${item.UserId}">아이디</td>
-                        <td th:text="${item.Pass}">비밀번호</td>
-                        <td th:text="${item.UserName}">원생이름</td>
-                        <td th:text="${item.Delete_Yn == 'N' ? '재학' : '퇴원'}">상태</td>
+                        <td class="userId" th:text="${item.UserId}">아이디</td>
+                        <td class="password" th:text="${item.Pass}">비밀번호</td>
+                        <td class="userName" th:text="${item.UserName}">원생이름</td>
+                        <td class="userStatus" th:text="${item.Delete_Yn == 'N' ? '재학' : '퇴원'}">상태</td>
                     </tr>
                 </th:block>
                 <th:block th:unless="${map != null and map.size > 0}">

@@ -112,3 +112,288 @@ body.navOff footer{left: 80px;}
     font-weight: bold;
 }
 
+/* =========================================
+   Mobile Responsive Styles (Max-width: 768px)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    #mobileMenuBtn { display: block !important; }
+
+    /* [레이아웃] 전체 래퍼 및 폰트 사이즈 조정 */
+    body { font-size: 1.4rem; overflow-x: hidden; }
+    .wrap { width: 100%; overflow-x: hidden; }
+
+    /* [헤더] 로고 및 유틸 버튼 조정 */
+    .header { justify-content: space-between; padding: 0 10px; }
+    .header h1 { font-size: 18px; padding: 0; }
+    .header .utill_wrap { margin-right: 0; }
+    .header .utill .name { display: none; } /* 모바일에서 이름 숨김 (공간 확보) */
+
+    /* [사이드 메뉴] 평소엔 숨기고, 활성화(.active) 시 노출 */
+    .sideNav {
+        position: fixed;
+        left: -100%; /* 화면 밖으로 숨김 */
+        top: 55px; /* 헤더 높이만큼 아래로 */
+        width: 80%; /* 모바일에서는 화면의 80% 차지 */
+        height: calc(100vh - 55px);
+        z-index: 999;
+        transition: left 0.3s ease;
+    }
+    .sideNav.active {
+        left: 0; /* 활성화 시 화면 진입 */
+    }
+    /* 메뉴 뒤 검은 배경 (Overlay) - 필요시 JS로 제어 */
+    .nav-overlay {
+        display: none;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); z-index: 900;
+    }
+    .nav-overlay.active { display: block; }
+
+    /* [컨텐츠 영역] 사이드바 공간 제거하고 꽉 채우기 */
+    .contentsWrap {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 10px;
+    }
+    body.navOff .contentsWrap { width: 100%; } /* navOff 상태 강제 리셋 */
+
+    /* [테이블] 가로 스크롤 허용 (데이터 깨짐 방지) */
+    .contents { overflow-x: auto; } 
+    .tblBasic { 
+        min-width: 100%; /* 고정폭 1300px 해제 */
+        width: auto; 
+        white-space: nowrap; /* 줄바꿈 방지 */
+    }
+
+    /* [입력 폼] 라벨과 입력창을 위아래로 배치 (Stacking) */
+    .writeForm .writerow {
+        display: block; /* Flex 해제 */
+        border-bottom: 1px solid #eee;
+    }
+    .writeForm .writerow > .t {
+        width: 100%;
+        background: transparent;
+        padding: 10px 0 5px 0;
+        border-bottom: none;
+    }
+    .writeForm .writerow > .c {
+        width: 100%;
+        padding: 0 0 10px 0;
+    }
+    /* 입력창 꽉 차게 */
+    .writeForm input[type="text"],
+    .writeForm input[type="password"],
+    .writeForm select,
+    .writeForm textarea {
+        width: 100% !important; 
+    }
+    /* 파일 첨부 영역 */
+    .fileBox input[type="text"] { width: calc(100% - 90px) !important; }
+
+    /* [로그인 페이지] 너비 유동적으로 변경 */
+    .loginForm {
+        width: 90%;
+        margin: 100px auto 0;
+    }
+
+    /* [푸터] 위치 조정 */
+    .footer {
+        position: static; /* 하단 고정 해제하거나 static으로 흐름 따름 */
+        width: 100%;
+        left: 0;
+        padding: 0 10px;
+        text-align: center;
+    }
+    
+    /* [기타] 검색 영역 등 */
+    .seachArea { text-align: center; }
+    .seachArea input, .seachArea select, .seachArea button {
+        margin-bottom: 5px;
+        width: 100%; /* 모바일에서 검색창 꽉 차게 */
+    }
+    .schInputWrap { width: 100%; }
+
+    /* [추가 1] 컨텐츠 영역 여백 조정 */
+    .contentsWrap {
+        padding: 10px !important; /* 좌우 여백을 줄여서 공간 확보 */
+        overflow-x: hidden; /* 전체 페이지 가로 스크롤 방지 */
+    }
+
+    /* [추가 2] 테이블 강제 너비 해제 및 모바일 최적화 */
+    .tblBasic {
+        min-width: auto !important; /* 1300px 고정 해제 */
+        width: 100% !important;     /* 화면 너비에 딱 맞춤 */
+        table-layout: fixed;        /* 셀 내용이 길어도 표가 깨지지 않게 고정 */
+    }
+
+    /* [추가 3] 테이블 컬럼 너비 조정 (번호 vs 제목) */
+    /* 첫 번째 컬럼(번호)은 좁게 */
+    .tblBasic colgroup col:nth-child(1) {
+        width: 50px !important; 
+    }
+    /* 두 번째 컬럼(제목)은 나머지 공간 다 차지 */
+    .tblBasic colgroup col:nth-child(2) {
+        width: auto !important; 
+    }
+
+    /* [추가 4] 제목이 너무 길 경우 ... 으로 표시 (선택사항) */
+    .tblBasic td {
+        white-space: nowrap;      /* 줄바꿈 방지 */
+        overflow: hidden;         /* 넘치는 텍스트 숨김 */
+        text-overflow: ellipsis;  /* ... 처리 */
+        padding: 0 5px !important; /* 셀 안쪽 여백 줄임 */
+    }
+    
+    /* PC용 스크롤바 숨기기 (모바일스럽게) */
+    .contents::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* [디자인 개선 1] 폰트 및 기본 여백 설정 */
+    body, th, td, input, select, textarea, button, a {
+        /* Pretendard 폰트 우선 적용 (없으면 맑은 고딕) */
+        font-family: 'Pretendard', 'Malgun Gothic', sans-serif !important;
+        letter-spacing: -0.5px; /* 자간을 살짝 좁혀서 세련되게 */
+    }
+
+    /* [디자인 개선 2] 컨텐츠 전체 여백 확보 */
+    .contentsWrap {
+        padding: 20px 15px !important; /* 상하 20px, 좌우 15px */
+        background-color: #fff; /* 배경 흰색 */
+    }
+
+    /* [디자인 개선 3] 제목(목록)과 테이블 사이 간격 */
+    .subTitle {
+        margin-bottom: 15px !important;
+        padding: 0 5px;
+    }
+    .subTitle h2 {
+        font-size: 20px !important; /* 제목 크기 적당히 키움 */
+        font-weight: 700;
+    }
+
+    /* [디자인 개선 4] 테이블 스타일 업그레이드 */
+    .tblBasic {
+        min-width: auto !important;
+        width: 100% !important;
+        border-top: 2px solid #333 !important; /* 상단 라인 진하게 */
+    }
+    
+    /* 헤더 (회색 부분) */
+    .tblBasic th {
+        background-color: #f8f9fa !important; /* 더 밝고 깨끗한 회색 */
+        color: #555;
+        padding: 12px 0 !important; /* 위아래 여백 확보 */
+        font-size: 14px;
+        font-weight: 600;
+        border-bottom: 1px solid #ddd !important;
+    }
+    
+    .tblBasic td {
+        padding: 15px 10px !important; 
+        font-size: 15px !important; 
+        border-bottom: 1px solid #eee !important; 
+        color: #333;
+    }
+
+    .tblBasic th.password,.tblBasic td.password{display: none;}
+
+    /* 리스트의 링크 스타일 (파란색 -> 진한 회색) */
+    .tblBasic td a {
+        color: #333 !important; /* 기본은 깔끔한 검정/회색 */
+        text-decoration: none;
+        display: block; /* 셀 전체가 클릭되도록 */
+    }
+    
+    /* 링크 눌렀을 때만 포인트 컬러 */
+    .tblBasic td a:active,
+    .tblBasic td a:hover {
+        color: #2a58d4 !important; /* 클릭 시 메인 컬러 */
+        font-weight: 500;
+    }
+    
+    /* '편집' 버튼 같은 우측 버튼들 위치 조정 */
+    .btn {
+        font-family: 'Pretendard' !important;
+        border-radius: 6px !important; /* 둥글게 */
+    }
+
+    /* [추가] 상세 화면 레이아웃: 좌우 배치를 -> 위아래 배치로 변경 */
+    .writeForm .writerow {
+        display: block !important; /* Flex 해제하고 블록으로 변경 */
+        height: auto !important;
+        border-bottom: none !important; /* 구분선 제거 (깔끔하게) */
+        margin-bottom: 20px;
+    }
+
+    /* [디자인 개선 1] '제목', '영상' 라벨 스타일 (작고 세련되게) */
+    .writeForm .writerow > .t {
+        display: none !important;
+    }
+
+    .writeForm .writerow > .c.title {
+        display: none !important;
+    }
+
+    /* [디자인 개선 2] 실제 제목 텍스트 (크고 잘 보이게) */
+    .writeForm .writerow > .c {
+        width: 100% !important;
+        padding: 0 5px 20px 5px !important; /* 하단 여백 추가 */
+        
+        font-size: 20px !important;   /* 제목은 크게 */
+        font-weight: 700 !important;  /* 굵게 강조 */
+        color: #222 !important;       /* 진한 검정 */
+    }
+
+
+    /* [디자인 개선 3] 버튼 영역 (나란히 배치 & 여백) */
+    .writeFormSubmit {
+        display: flex !important;       /* 버튼을 가로로 배치 */
+        justify-content: space-between; /* 양쪽 끝으로 벌리기 */
+        gap: 10px;                      /* 버튼 사이 간격 10px */
+        padding: 20px 0 !important;
+        margin-top: 10px !important;
+    }
+
+    /* [디자인 개선 4] 버튼 공통 스타일 (둥글고 요즘 스타일로) */
+    .writeFormSubmit button {
+        width: 48% !important;          /* 버튼 너비 반반씩 */
+        height: 50px !important;        /* 터치하기 좋은 높이 */
+        line-height: 50px !important;
+        border-radius: 12px !important; /* 둥근 모서리 */
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 은은한 그림자 */
+        transition: all 0.2s;
+    }
+
+    /* '목록' 버튼 (흰색 바탕 + 회색 테두리) */
+    .writeFormSubmit button.bdGray {
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        color: #555 !important;
+    }
+
+    /* '삭제' 버튼 (빨간색 계열로 변경 추천 - 위험한 기능이므로) */
+    /* 기존 bgGreen 클래스를 쓰고 있지만, 삭제는 보통 빨간색입니다. */
+    .writeFormSubmit button.bgGreen {
+        background: #ff5e57 !important; /* 세련된 붉은색 */
+        border: none !important;
+        color: #fff !important;
+    }
+    
+    /* 버튼 눌렀을 때 효과 */
+    .writeFormSubmit button:active {
+        transform: scale(0.98); /* 살짝 눌리는 느낌 */
+        box-shadow: none;
+    }
+
+    /* [핵심] 비디오 크기 강제 조정 */
+    video {
+        width: 100% !important;   /* 화면 너비에 딱 맞춤 */
+        height: auto !important;  /* 높이는 비율에 맞춰 자동 조절 (찌그러짐 방지) */
+        max-width: 100% !important;
+        border-radius: 8px;       /* 모서리 살짝 둥글게 */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+    }
+}

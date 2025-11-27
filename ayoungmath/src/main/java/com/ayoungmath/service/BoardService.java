@@ -81,6 +81,10 @@ public class BoardService {
 		return boardMapper.getMaxSectionValueByGrade();
 	}
 
+	public String getSectionNameBySeq(String sectionSeq){
+		return boardMapper.getSectionNameBySeq(sectionSeq);
+	}
+
 	public boolean deleteSection(String sectionSeq) {
 		String sectionValue = boardMapper.getSectionValueBySeq(sectionSeq);
 		if (sectionValue != null) {

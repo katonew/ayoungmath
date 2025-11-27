@@ -134,6 +134,11 @@
 		SELECT Section_Value FROM section_list WHERE Section_Seq = #{sectionSeq}
 	</select>
 
+	<select id="getSectionNameBySeq" parameterType="string" resultType="string">
+		/* getSectionNameBySeq 섹션 시퀀스로 섹션 타이틀 가져오기 */
+		SELECT Section_Name FROM section_list WHERE Section_Value = #{sectionSeq}
+	</select>
+
 	<delete id="deleteVideosBySectionValue" parameterType="string">
 		/* deleteVideosBySectionValue 섹션 값으로 영상 삭제 */
 		DELETE FROM Video_List

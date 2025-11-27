@@ -19,7 +19,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						
 			            data.forEach(grade => {
 			                navHtml += `
-			                    <li aria-label="${grade.sections.map(s => s.Section_Seq).join('|')}">
+			                    <li aria-label="${grade.sections.map(s => s.Section_Value).join('|')}">
 			                        <a><i class="fontIcons google"></i>${grade.gradeName}</a>
 			                        <div class="dep2Menu">
 			                            <ul>
@@ -117,6 +117,22 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						window.location.href = '/';
 					});
 					
+				});
+
+				$(document).on("click", "#mobileMenuBtn", function(){
+					$(".sideNav").toggleClass("active"); // 메뉴 열기/닫기
+					
+					// 배경 오버레이가 없다면 생성
+					if($(".nav-overlay").length === 0) {
+						$("body").append("<div class='nav-overlay'></div>");
+					}
+					$(".nav-overlay").toggleClass("active");
+				});
+
+				// 2. 검은 배경(Overlay) 클릭 시 메뉴 닫기
+				$(document).on("click", ".nav-overlay", function(){
+					$(".sideNav").removeClass("active");
+					$(this).removeClass("active");
 				});
 				
 			});
