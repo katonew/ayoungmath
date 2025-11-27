@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head th:fragment="headFragment">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -33,14 +34,14 @@ xmlns:th="http://www.thymeleaf.org">
 		<div class="">
 			<div class="mb10">아이디</div>
 			<div class=""> 
-				<input id="userId" class="mb10 w400" type="text">
+				<input id="userId" class="loginInput" type="text">
 			</div>
 			<div class="mb10">비밀번호</div> 
 			<div class="">
-				<input id="password" class="mb10 w400" type="password">
+				<input id="password" class="loginInput" type="password">
 			</div>
 			<div class="btndiv">
-				<button class="btn sizeL mb10 w400 bdGray" type="button" onclick="login()"> 로그인 </button>
+				<button class="btn sizeL bdGray loginBtn" type="button" onclick="login()"> 로그인 </button>
 			</div>
 		</div>
 	</div>

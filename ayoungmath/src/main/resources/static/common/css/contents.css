@@ -2,7 +2,7 @@
 /* 로그인 */
 .loginForm{width: 420px; margin: 200px auto 0;}
 .loginForm .loginLogo{text-align: center; margin-bottom: 30px;}
-.loginForm .loginInput{position: relative; margin-bottom:15px;}
+.loginForm .loginInput{position: relative; margin-bottom:15px; width: 400px;}
 .loginForm .loginInput label{position: absolute; left: 12px; top: 0; line-height: 50px; color: #989ca9; transition: all 0.5s;}
 .loginForm .loginInput input{width: 100%; height: 50px;}
 .loginForm .loginInput input.on + label,
@@ -14,7 +14,7 @@
 .loginForm .loginIdpw a + a::before{ content: ''; position: absolute; top: 3px; left: 12px; width: 1px; height: 12px; border-radius: 0.5px; background-color: #dadada;}
 .loginForm .loginIdpw a:hover{color:var(--fontDefultColor)}
 .loginFooter{padding: 50px 0; text-align: center; color: #777; margin-top: 100px; position: fixed; bottom: 0; width: 100%; font-size: 12px; letter-spacing: 2px;}
-
+.loginBtn{width: 425px;}
 /* 탭메뉴 */ 
 .tabMenu{display: flex; margin-bottom: 20px;}
 .tabMenu li{}
@@ -136,3 +136,55 @@
 
 /* 상품정보제공고시 */
 
+
+@media screen and (max-width: 768px) {
+    /* [로그인 폼] 전체 너비 및 여백 조정 */
+    .loginForm {
+        width: 100% !important;     /* 420px 고정 해제 -> 화면 꽉 차게 */
+        margin: 100px auto 0 !important; /* 상단 여백 조금 줄임 */
+    }
+
+    /* [로고] 크기 조절 */
+    .loginForm .loginLogo {
+        margin-bottom: 30px !important;
+    }
+    .loginForm .loginLogo img {
+        width: 60% !important;      /* 로고 크기 적당히 줄임 */
+        max-width: 200px;
+    }
+
+    /* [입력창 영역] 너비 100%로 확장 */
+    .loginForm .loginInput {
+        width: 94% !important;     /* 400px 고정 해제 */
+        margin-bottom: 20px !important;
+    }
+
+    /* [입력창] 높이 및 폰트 */
+    .loginForm .loginInput input {
+        height: 50px !important;
+        font-size: 16px !important; /* 폰트 키움 */
+        border-radius: 8px !important;
+    }
+
+    /* [라벨] '아이디', '비밀번호' 텍스트 */
+    .loginForm .mb10 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px !important;
+        text-align: left; /* 왼쪽 정렬 */
+    }
+
+    /* [버튼] */
+    .loginForm .btndiv {
+        margin-top: 30px;
+    }
+    .loginForm .loginBtn {
+        width: 100% !important;     /* 425px 고정 해제 */
+        height: 50px !important;
+        font-size: 16px !important;
+        border-radius: 8px !important;
+        background-color: var(--mainColor); /* 메인 컬러 적용 (선택) */
+        color: #fff;
+        border: none;
+    }
+}
